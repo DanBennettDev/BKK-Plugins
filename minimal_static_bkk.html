@@ -10,7 +10,8 @@
   <script src="./js/circumplex.js"> </script>
 
 
-<script>var bkk = new BKK();
+<script>
+var bkk = new BKK();
 var circ = new Circumplex();
 var pinkTromboneElement;
 var audioCtx;
@@ -20,7 +21,7 @@ var bkkPhon = "";
 var circumplexX = null;
 var circumplexY = null;
 var userBKKs = null;
-var bkksize = "big"
+var bkksize = "big";
 
 window.onresize = resizeBKK;
 
@@ -38,11 +39,6 @@ function resizeBKK() {
   }
 }
 
-
-// TODO SET THIS UP
-function setupBKKCTRL(){
-    circ.setupControls(circ_div, circumplexClick);
-}
 
 </script>
 
@@ -127,7 +123,7 @@ function setupBKKCTRL(){
     bkk.set_form_update_event(recordParameters) 
   }
 
-  circ.setupCircumplex(circContainer, circumplexClick)
+  // circ.setupCircumplex(circContainer, circumplexClick)
   bkk.runBKKExplore(setupFormUpdate);   
 
 </script>

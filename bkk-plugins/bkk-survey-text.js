@@ -125,16 +125,50 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             +'<div class="bkkAll" id="bkkAll">'
 
             +'<div class="bkkLeft" id="bkkLeft"><div id="bkkContainer" class="bkkContainer"></div>'
-            + "left"
             + "</div>" // bkkLeft ends
             + '<div class="bkkRight" id="bkkRight">'
-            + "testR"                  
+            + '<div id="ctrlContainer">'
+            //  BKK GUI
+            + '<div class="menu_displays" id="create_menu">'
+            +'<div class="bkk_slidewrap">'
+              +'<img src="./img/ii_protrusion_a.png" width="40px">'
+              +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="127">'
+              +'<img src="./img/ii_protrusion_b.png" width="40px"><br>'
+            +'</div>'
+            +'<div class="bkk_slidewrap">'
+              +'<img src="./img/ii_count_a.png" width="40px">'
+              +'<input class="bkkslide" type="range" id="complexity" min="0" max="255" value="127">'
+              +'<img src="./img/ii_count_b.png" width="40px"><br>'
+            +'</div>'
+            +'<div class="bkk_slidewrap">'
+              +'<img src="./img/ii_mess_a.png" width="40px">'
+              +'<input class="bkkslide" type="range" id="noise" min="0" max="255" value="0">'
+              +'<img src="./img/ii_mess_b.png" width="40px">'
+              +'<br>'
+            +'</div>'
+            +'<div class="bkk_slidewrap">'
+              +'<img src="./img/ii_smooth_b.png" width="40px">'
+              +'<input class="bkkslide" type="range" id="smooth" min="0" max="255" value="127">'
+              +'<img src="./img/ii_smooth_a.png" width="40px">'
+              +'<br>'
+            +'</div>'
+            +'<div class="bkk_slidewrap">'
+              +'<img src="./img/ii_rotate_a.png" width="40px">'
+              +'<input class="bkkslide" type="range" id="move_amount" min="0" max="255" value="40">'
+              +'<img src="./img/ii_rotate_b.png" width="40px">'
+              +'<br>'
+            +'</div>'
+            +'<div class="bkk_slidewrap">'
+              +'<input class="field-radio" type="color" id="colourPicker" value="#f64f8c">'
+              +'<br>'
+            +'</div>'
+            +'</div>' // create_menu ends  
+            + "</div>" // ctrlContainer ends     
             + "</div>" // bkkRight ends                  
             + "</div>";
 
-
-
           // BKK SPECIFIC STUFF ENDS ------------------------------------------------------------------------------------------------------
+
 
           // start form
           if (trial.autocomplete) {
@@ -244,7 +278,8 @@ var jsPsychBKKSurveyText = (function (jspsych) {
               this.jsPsych.finishTrial(trialdata);
           });
 
-          // BKK SETUP SCRIPT 
+
+          // BKK SPECIFIC STUFF STARTS ---------------------- 
           var bkk = new BKK();
           var circ = new Circumplex();
           var pinkTromboneElement;
@@ -288,7 +323,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           // circ.setupCircumplex(circContainer, circumplexClick)
           bkk.runBKKExplore(setupFormUpdate);       
 
-          //  JSPSYCH boilerplate again
+          //  BKK SPECIFIC STUFF ENDS ----------------------
+
+
+
           var startTime = performance.now();
       }
   }
