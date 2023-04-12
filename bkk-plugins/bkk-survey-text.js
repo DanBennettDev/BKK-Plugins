@@ -1,14 +1,44 @@
+// JSPSYCH Standard stuff
+
 var jsPsychBKKSurveyText = (function (jspsych) {
   'use strict';
 
-
-
-  //  BKK SPECIFIC JS ENDS ----------------------------------------------------
-
-  // JSPSYCH Standard stuff
   const info = {
       name: "survey-text",
       parameters: {
+        // BKK PARAMS START /////////////////////
+
+        spike: {
+          type: jspsych.ParameterType.INT,
+          default: 120,
+        },
+        complexity: {
+          type: jspsych.ParameterType.INT,
+          default: 100,
+        },
+        noise: {
+          type: jspsych.ParameterType.INT,
+          default: 100,
+        },
+        smooth: {
+          type: jspsych.ParameterType.INT,
+          default: 100,
+        },
+        move: {
+          type: jspsych.ParameterType.INT,
+          default: 0,
+        },
+        bbkkSize: {
+          type: jspsych.ParameterType.FLOAT,
+          default: 150,
+        },
+        bkkColor:{
+          type:jspsych.ParameterType.STRING,
+          default:"#36DDD2"
+        },
+
+        // BKK PARAMS END /////////////////////
+
           questions: {
               type: jspsych.ParameterType.COMPLEX,
               array: true,
@@ -128,38 +158,39 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             + "</div>" // bkkLeft ends
             + '<div class="bkkRight" id="bkkRight">'
             + '<div id="ctrlContainer">'
+
             //  BKK GUI
             + '<div class="menu_displays" id="create_menu">'
             +'<div class="bkk_slidewrap">'
               +'<img src="./img/ii_protrusion_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="127">'
+              +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="' + trial.spike + '">'
               +'<img src="./img/ii_protrusion_b.png" width="40px"><br>'
             +'</div>'
             +'<div class="bkk_slidewrap">'
               +'<img src="./img/ii_count_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="complexity" min="0" max="255" value="127">'
+              +'<input class="bkkslide" type="range" id="complexity" min="0" max="255" value="' + trial.complexity + '">'
               +'<img src="./img/ii_count_b.png" width="40px"><br>'
             +'</div>'
             +'<div class="bkk_slidewrap">'
               +'<img src="./img/ii_mess_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="noise" min="0" max="255" value="0">'
+              +'<input class="bkkslide" type="range" id="noise" min="0" max="255" value="' + trial.noise + '">'
               +'<img src="./img/ii_mess_b.png" width="40px">'
               +'<br>'
             +'</div>'
             +'<div class="bkk_slidewrap">'
               +'<img src="./img/ii_smooth_b.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="smooth" min="0" max="255" value="127">'
+              +'<input class="bkkslide" type="range" id="smooth" min="0" max="255" value="' + trial.smooth + '">'
               +'<img src="./img/ii_smooth_a.png" width="40px">'
               +'<br>'
             +'</div>'
             +'<div class="bkk_slidewrap">'
               +'<img src="./img/ii_rotate_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="move_amount" min="0" max="255" value="40">'
+              +'<input class="bkkslide" type="range" id="move_amount" min="0" max="255" value="' + trial.move + '">'
               +'<img src="./img/ii_rotate_b.png" width="40px">'
               +'<br>'
             +'</div>'
             +'<div class="bkk_slidewrap">'
-              +'<input class="field-radio" type="color" id="colourPicker" value="#f64f8c">'
+              +'<input class="field-radio" type="color" id="colourPicker" value="' + trial.bkkColor + '"">'
               +'<br>'
             +'</div>'
             +'</div>' // create_menu ends  

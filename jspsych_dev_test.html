@@ -37,14 +37,16 @@
 
     var bkk_survey = {       
       type: jsPsychBKKSurveyText, 
-      colorBase:"#D7B27A",
-      moveSlider:200,
-      gui_show:true,
-      complexity_show:false,
-      smooth_show:false,
-      colour_hid:false,
-      button_left:648,
-      button_top:340,
+      bkkColor:"#D7B27A",
+      spike:127,
+      complexity:127,
+      noise: 127,
+      move: 127,
+      smooth: 127,
+      // gui_show:true,
+      // complexity_show:false,
+      // smooth_show:false,
+      // colour_hid:false,
       preamble: `<img src="./img/boubakiki.png" style="width:400px;"></img>`,
       questions: [
         {prompt: 'Test Question ',placeholder: 'Test Placeholder?',rows:5, columns: 50, name:'test name'}
