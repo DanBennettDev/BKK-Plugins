@@ -17,10 +17,16 @@ let canvasX = 400;
 let canvasY = 250;
 
 
-let emotionList = [ "ACTIVE","alert", "excited", "elated", "happy",
-                 "PLEASANT", "contented", "serene", "relaxed", "calm",
-                 "NOT ACTIVE","tired", "bored", "depressed", "sad",
-                 "UNPLEASANT","upset", "stressed", "nervous", "tense"]
+// let emotionList = [ "ACTIVE","alert", "excited", "elated", "happy",
+//                  "PLEASANT", "contented", "serene", "relaxed", "calm",
+//                  "NOT ACTIVE","tired", "bored", "depressed", "sad",
+//                  "UNPLEASANT","upset", "stressed", "nervous", "tense"]
+
+let emotionList = [ "ACTIVE",
+                 "PLEASANT", 
+                 "NOT ACTIVE",
+                 "UNPLEASANT"
+                 ]
 
 let circumplexSketch = function(p) {
 
@@ -35,7 +41,7 @@ let circumplexSketch = function(p) {
     p.noFill()
     p.stroke(200);
     p.strokeWeight(1);
-    p.circle(cx,cy, dotRadius*2);
+    p.square(cx-dotRadius,cy-dotRadius, dotRadius*2);
 
     npoints = emotionList.length;
     let angle = p.TWO_PI / npoints;
@@ -104,10 +110,17 @@ let circumplexSketch = function(p) {
     clickedY = p.mouseY;
     xRel =  clickedX-centreX;
     yRel = clickedY-centreY
-    dist = Math.sqrt((xRel*xRel) + (yRel*yRel));
-    if(dist<=dotRadius){
+    cx = (p.width/2);
+    cy = (p.height/2);   
+    console.log(xRel, yRel) 
+    if((clickedX > cx-dotRadius) &
+        (clickedX < cx+dotRadius) &
+        (clickedY > cy-dotRadius) &
+        (clickedY < cy+dotRadius) 
+      )
+      {
       clicked = true;
-      _circ_callback(xRel, yRel);
+      _circ_callback(xRel, yRel);    
     }
   }
 

@@ -6,7 +6,7 @@
 - [x] script sliders on/off
 - [x] capture slider values
 - [X] Show / Hide Circumplex
+- [x] Make Circumplex square
 
-- [ ] Make Circumplex square
 - [ ] script animation
 - [ ] Other response inputs? 
