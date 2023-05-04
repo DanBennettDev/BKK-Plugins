@@ -186,7 +186,6 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             + "</div>" // bkkLeft ends
             + '<div class="bkkRight" id="bkkRight">'
             + '<div id="ctrlContainer">'
-
             //  BKK GUI
               + '<div class="menu_displays" id="create_menu">'
               +'<div class="bkk_slidewrap" id="sld_spike">'
@@ -221,8 +220,9 @@ var jsPsychBKKSurveyText = (function (jspsych) {
                 +'<input class="field-radio" type="color" id="colourPicker" value="' + trial.bkkColor + '"">'
                 +'<br>'
               +'</div>'
-              +'</div>' // create_menu ends  
-            + "</div>" // ctrlContainer ends     
+            + '<div class="circContainer" id="circContainer"></div>'   
+            +'</div>' // create_menu ends             
+            + "</div>" // ctrlContainer ends   
             + "</div>" // bkkRight ends                  
             + "</div>";
 
@@ -398,7 +398,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             bkk.set_form_update_event(recordParameters) 
           }
 
-          // circ.setupCircumplex(circContainer, circumplexClick)
+          circ.setupCircumplex(circContainer, circumplexClick)
           bkk.runBKKExplore(setupFormUpdate);       
 
            if (trial.gui_show){

@@ -13,7 +13,7 @@ let centreX = 0;
 let centreY = 0;
 let clickedX = 0;
 let clickedY = 0;
-let canvasX = 350;
+let canvasX = 400;
 let canvasY = 250;
 
 
