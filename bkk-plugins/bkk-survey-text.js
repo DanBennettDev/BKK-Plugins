@@ -36,6 +36,34 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.STRING,
           default:"#36DDD2"
         },
+        gui_show:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_spike:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_complexity:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_noise:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_smooth:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_move:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
+        gui_hide_color:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },
 
         // BKK PARAMS END /////////////////////
 
@@ -160,40 +188,40 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             + '<div id="ctrlContainer">'
 
             //  BKK GUI
-            + '<div class="menu_displays" id="create_menu">'
-            +'<div class="bkk_slidewrap">'
-              +'<img src="./img/ii_protrusion_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="' + trial.spike + '">'
-              +'<img src="./img/ii_protrusion_b.png" width="40px"><br>'
-            +'</div>'
-            +'<div class="bkk_slidewrap">'
-              +'<img src="./img/ii_count_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="complexity" min="0" max="255" value="' + trial.complexity + '">'
-              +'<img src="./img/ii_count_b.png" width="40px"><br>'
-            +'</div>'
-            +'<div class="bkk_slidewrap">'
-              +'<img src="./img/ii_mess_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="noise" min="0" max="255" value="' + trial.noise + '">'
-              +'<img src="./img/ii_mess_b.png" width="40px">'
-              +'<br>'
-            +'</div>'
-            +'<div class="bkk_slidewrap">'
-              +'<img src="./img/ii_smooth_b.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="smooth" min="0" max="255" value="' + trial.smooth + '">'
-              +'<img src="./img/ii_smooth_a.png" width="40px">'
-              +'<br>'
-            +'</div>'
-            +'<div class="bkk_slidewrap">'
-              +'<img src="./img/ii_rotate_a.png" width="40px">'
-              +'<input class="bkkslide" type="range" id="move_amount" min="0" max="255" value="' + trial.move + '">'
-              +'<img src="./img/ii_rotate_b.png" width="40px">'
-              +'<br>'
-            +'</div>'
-            +'<div class="bkk_slidewrap">'
-              +'<input class="field-radio" type="color" id="colourPicker" value="' + trial.bkkColor + '"">'
-              +'<br>'
-            +'</div>'
-            +'</div>' // create_menu ends  
+              + '<div class="menu_displays" id="create_menu">'
+              +'<div class="bkk_slidewrap" id="sld_spike">'
+                +'<img src="./img/ii_protrusion_a.png" width="40px">'
+                +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="' + trial.spike + '">'
+                +'<img src="./img/ii_protrusion_b.png" width="40px"><br>'
+              +'</div>'
+              +'<div class="bkk_slidewrap" id="sld_complexity">'
+                +'<img src="./img/ii_count_a.png" width="40px">'
+                +'<input class="bkkslide" type="range" id="complexity" min="0" max="255" value="' + trial.complexity + '">'
+                +'<img src="./img/ii_count_b.png" width="40px"><br>'
+              +'</div>'
+              +'<div class="bkk_slidewrap" id="sld_noise">'
+                +'<img src="./img/ii_mess_a.png" width="40px">'
+                +'<input class="bkkslide" type="range" id="noise" min="0" max="255" value="' + trial.noise + '">'
+                +'<img src="./img/ii_mess_b.png" width="40px">'
+                +'<br>'
+              +'</div>'
+              +'<div class="bkk_slidewrap" id="sld_smooth">'
+                +'<img src="./img/ii_smooth_b.png" width="40px">'
+                +'<input class="bkkslide" type="range" id="smooth" min="0" max="255" value="' + trial.smooth + '">'
+                +'<img src="./img/ii_smooth_a.png" width="40px">'
+                +'<br>'
+              +'</div>'
+              +'<div class="bkk_slidewrap" id="sld_move">'
+                +'<img src="./img/ii_rotate_a.png" width="40px">'
+                +'<input class="bkkslide" type="range" id="move_amount" min="0" max="255" value="' + trial.move + '">'
+                +'<img src="./img/ii_rotate_b.png" width="40px">'
+                +'<br>'
+              +'</div>'
+              +'<div class="bkk_slidewrap"  id="sld_color">'
+                +'<input class="field-radio" type="color" id="colourPicker" value="' + trial.bkkColor + '"">'
+                +'<br>'
+              +'</div>'
+              +'</div>' // create_menu ends  
             + "</div>" // ctrlContainer ends     
             + "</div>" // bkkRight ends                  
             + "</div>";
@@ -353,6 +381,37 @@ var jsPsychBKKSurveyText = (function (jspsych) {
 
           // circ.setupCircumplex(circContainer, circumplexClick)
           bkk.runBKKExplore(setupFormUpdate);       
+
+           if (trial.gui_show){
+            if (trial.gui_hide_spike){
+              const gui = document.getElementById("sld_spike");
+              gui.style.display='none'
+            }
+            if (trial.gui_hide_complexity){
+              const gui = document.getElementById("sld_complexity");
+              gui.style.display='none'
+            }
+            if (trial.gui_hide_noise){
+              const gui = document.getElementById("sld_noise");
+              gui.style.display='none'
+            }
+            if (trial.gui_hide_smooth){
+              const gui = document.getElementById("sld_smooth");
+              gui.style.display='none'
+            }
+            if (trial.gui_hide_move){
+              const gui = document.getElementById("sld_move");
+              gui.style.display='none'
+            }
+            if (trial.gui_hide_color){
+              const gui = document.getElementById("sld_color");
+              gui.style.display='none'
+            }                                         
+
+            //  Finally display the DIV
+            const gui = document.getElementById("create_menu");
+            gui.style.display='inline-block'
+           }
 
           //  BKK SPECIFIC STUFF ENDS ----------------------
 

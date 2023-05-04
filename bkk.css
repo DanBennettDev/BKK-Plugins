@@ -324,12 +324,14 @@ a.hover:hover {
   padding-top: 15px;
   padding-bottom: 8px;
   margin-top: 0px;
-  /*display: inline-block;  */
   width:  375px;
   min-height: 425px;
   /*border: #34daff 1px solid; */
   box-shadow: 0 1px 8px 0 #34daff3d, 0 1px 8px 0 #34daff3d;
+  display: none;
 }
+
+
 
 #name_menu{
   display: none;

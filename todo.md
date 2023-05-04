@@ -1,9 +1,12 @@
 # To Do BKK Framework
 
-- [ ] 
-  set slider values by params
+
+
+- [x] set slider values by params
+- [x] script sliders on/off
+
+
 - [ ] capture slider values
-- [ ] script sliders on/off
 - [ ] Show / Hide Circumplex
 - [ ] Make Circumplex square
 - [ ] script animation
