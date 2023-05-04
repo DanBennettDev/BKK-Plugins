@@ -327,10 +327,29 @@ var jsPsychBKKSurveyText = (function (jspsych) {
                   obje[name] = val;
                   Object.assign(question_data, obje);
               }
+
+              // START BKK CODE
+              spikeVal = document.getElementById("spikiness").value
+              complexityVal = document.getElementById("complexity").value
+              noiseVal = document.getElementById("noise").value
+              smoothVal = document.getElementById("smooth").value
+              moveVal = document.getElementById("move_amount").value                                          
+              colourVal = document.getElementById("colourPicker").value       
+              // END BKK CODE
+
               // save data
               var trialdata = {
                   rt: response_time,
                   response: question_data,
+
+                  // START BKK CODE
+                  slider_spike:spikeVal,
+                  slider_complexity:complexityVal,
+                  slider_noise:noiseVal,
+                  slider_smooth:smoothVal,
+                  slider_move:moveVal,
+                  colour_Pick:colourVal,
+                  // END BKK CODE
               };
               display_element.innerHTML = "";
               // next trial
