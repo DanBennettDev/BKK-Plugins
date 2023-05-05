@@ -64,7 +64,14 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.BOOL,
           default:false,
         },
-
+        circClick_required:{
+          type:jspsych.ParameterType.BOOL,
+          default:true,
+        },
+        min_duration:{
+          type:jspsych.ParameterType.INT,
+          default:6000,
+        },
         // BKK PARAMS END /////////////////////
 
           questions: {
@@ -305,62 +312,80 @@ var jsPsychBKKSurveyText = (function (jspsych) {
 
           display_element.innerHTML = html;
           // backup in case autofocus doesn't work
-          display_element.querySelector("#input-" + question_order[0]).focus();
+          if(trial.questions.length>0) {
+            display_element.querySelector("#input-" + question_order[0]).focus();
+          }
           display_element.querySelector("#jspsych-survey-text-form").addEventListener("submit", (e) => {
+
               e.preventDefault();
               // measure response time
               var endTime = performance.now();
               var response_time = Math.round(endTime - startTime);
-              // create object to hold responses
-              var question_data = {};
-              for (var index = 0; index < trial.questions.length; index++) {
-                  var id = "Q" + index;
-                  var q_element = document
-                      .querySelector("#jspsych-survey-text-" + index)
-                      .querySelector("textarea, input");
-                  var val = q_element.value;
-                  var name = q_element.attributes["data-name"].value;
-                  if (name == "") {
-                      name = id;
-                  }
-                  var obje = {};
-                  obje[name] = val;
-                  Object.assign(question_data, obje);
+
+              // BKK ADDITIONS START
+              if (response_time<trial.min_duration){
+                alert("Take your time and reflect on the stimulus before clicking")
+              } else if(!trial.circClick_required || circClickCount > 0){
+              // BKK ADDITIONS END
+
+                // create object to hold responses
+                var question_data = {};
+                for (var index = 0; index < trial.questions.length; index++) {
+                    var id = "Q" + index;
+                    var q_element = document
+                        .querySelector("#jspsych-survey-text-" + index)
+                        .querySelector("textarea, input");
+                    var val = q_element.value;
+                    var name = q_element.attributes["data-name"].value;
+                    if (name == "") {
+                        name = id;
+                    }
+                    var obje = {};
+                    obje[name] = val;
+                    Object.assign(question_data, obje);
+                }
+
+                // START BKK CODE
+                spikeVal = document.getElementById("spikiness").value
+                complexityVal = document.getElementById("complexity").value
+                noiseVal = document.getElementById("noise").value
+                smoothVal = document.getElementById("smooth").value
+                moveVal = document.getElementById("move_amount").value                                          
+                colourVal = document.getElementById("colourPicker").value    
+                // END BKK CODE
+
+                // save data
+                var trialdata = {
+                    rt: response_time,
+                    response: question_data,
+
+                    // START BKK CODE
+                    slider_spike:spikeVal,
+                    slider_complexity:complexityVal,
+                    slider_noise:noiseVal,
+                    slider_smooth:smoothVal,
+                    slider_move:moveVal,
+                    colour_Pick:colourVal,
+                    valence: circumplexX,
+                    arousal: circumplexY,
+                    clickCount: circClickCount,
+                    // END BKK CODE
+                };
+                display_element.innerHTML = "";
+                // next trial
+                this.jsPsych.finishTrial(trialdata);
+
+              // BKK ADDITIONS START
+              } else {
+                alert("You cannot continue until you click to record your response")
               }
-
-              // START BKK CODE
-              spikeVal = document.getElementById("spikiness").value
-              complexityVal = document.getElementById("complexity").value
-              noiseVal = document.getElementById("noise").value
-              smoothVal = document.getElementById("smooth").value
-              moveVal = document.getElementById("move_amount").value                                          
-              colourVal = document.getElementById("colourPicker").value       
-              // END BKK CODE
-
-              // save data
-              var trialdata = {
-                  rt: response_time,
-                  response: question_data,
-
-                  // START BKK CODE
-                  slider_spike:spikeVal,
-                  slider_complexity:complexityVal,
-                  slider_noise:noiseVal,
-                  slider_smooth:smoothVal,
-                  slider_move:moveVal,
-                  colour_Pick:colourVal,
-                  // END BKK CODE
-              };
-              display_element.innerHTML = "";
-              // next trial
-              this.jsPsych.finishTrial(trialdata);
+              // BKK ADDITIONS END
           });
 
 
           // BKK SPECIFIC STUFF STARTS ---------------------- 
           var bkk = new BKK();
           var circ = new Circumplex();
-          var pinkTromboneElement;
           var audioCtx;
           var nameParts = [];
           var bkkName = '';
@@ -369,6 +394,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           var circumplexY = null;
           var userBKKs = null;
           var bkksize = 'big';
+          var circClickCount = 0;
           window.onresize = resizeBKK;
          function resizeBKK() {
             var w = window.innerWidth;
@@ -387,7 +413,9 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           }
           function circumplexClick() {
             // This function will handle what happens when the circumplex is clicked
-            null
+            circumplexX = circ.getCircClickX();
+            circumplexY = circ.getCircClickY();     
+            circClickCount +=1;       
           }
           function recordParameters() {
             // write this function to get the data from the sliders and record it so you can analyse it ter

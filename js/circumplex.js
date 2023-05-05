@@ -13,8 +13,10 @@ let centreX = 0;
 let centreY = 0;
 let clickedX = 0;
 let clickedY = 0;
-let canvasX = 400;
-let canvasY = 250;
+let relClickX = -999;
+let relClickY = -999;
+let canvasX = 600;
+let canvasY = 600;
 
 
 // let emotionList = [ "ACTIVE","alert", "excited", "elated", "happy",
@@ -45,26 +47,37 @@ let circumplexSketch = function(p) {
 
     npoints = emotionList.length;
     let angle = p.TWO_PI / npoints;
+
     for (let a = -p.PI/2, j=0; j < npoints; a += angle, j++) {
       x = (cx + p.cos(a) * radius);
       y = (cy + p.sin(a) * radius);
       dotx = (cx + p.cos(a) * dotRadius);
       doty = (cy + p.sin(a) * dotRadius);
       xoff = 0;
-      yoff= 0
-      if(j%(npoints/2)==0){
+      yoff = 0
+
+      if(j==0 | j==2){
         xoff = -p.textWidth(emotionList[j])/2
-      } else if (j>= npoints/2) {
-        xoff = -p.textWidth(emotionList[j])
+        if(j==2){
+          yoff = textHeight
+        }
+      } else if (j==1 | j==3) {
+          yoff = p.textWidth(emotionList[j]) / 2 ;
+          if(j==1){
+            xoff = textHeight*0.75 
+          }          
       }
-      if(j < npoints/2){
-        yoff = (j / (npoints/2)) *textHeight;
-      } else {
-        yoff = ((npoints-j)/(npoints/2)) *textHeight;;
-      }
-      p.color(0,0,0)
-      p.stroke(0)
-      p.text(emotionList[j], x+xoff, y+yoff);
+
+      p.push();
+        p.translate(x+xoff, y+yoff);
+        if(j==1 || j==3){
+          p.rotate(p.radians(270));
+        }
+        // Draw the letter to the screen
+        p.color(0,0,0)
+        p.stroke(0)      
+        p.text(emotionList[j], 0,0);
+      p.pop();
       p.fill(0,0,0);
       p.circle(dotx,doty,dotsize)
 
@@ -108,22 +121,30 @@ let circumplexSketch = function(p) {
   function drawMarker() {
     clickedX = p.mouseX;
     clickedY = p.mouseY;
-    xRel =  clickedX-centreX;
-    yRel = clickedY-centreY
     cx = (p.width/2);
     cy = (p.height/2);   
-    console.log(xRel, yRel) 
-    if((clickedX > cx-dotRadius) &
-        (clickedX < cx+dotRadius) &
-        (clickedY > cy-dotRadius) &
-        (clickedY < cy+dotRadius) 
+    lbound = cx-dotRadius
+    rbound = cx+dotRadius
+    tbound = cy-dotRadius
+    bbound = cy+dotRadius
+
+    if((clickedX > lbound) &
+        (clickedX < rbound) &
+        (clickedY > tbound) &
+        (clickedY < bbound) 
       )
       {
       clicked = true;
-      _circ_callback(xRel, yRel);    
+      relClickX =  clickedX - lbound
+      relClickX /= (rbound-lbound)
+      relClickX = (relClickX * 2) - 1
+      relClickY = clickedY - tbound
+      relClickY /= (bbound-tbound)   
+      relClickY = (relClickY * 2) - 1      
+      relClickY *= -1 // Flip the axis
+      _circ_callback(relClickX, relClickY);    
     }
   }
-
 }
 
 function setupCircumplex(div, clickCallback){
@@ -131,11 +152,20 @@ function setupCircumplex(div, clickCallback){
   new p5(circumplexSketch, div);
 };
 
+function getCircClickX(){
+  return relClickX;
+}
+
+function getCircClickY(){
+  return relClickY;
+}
 
 function Circumplex(){
   this.setupCircumplex = setupCircumplex;
   this.circX = clickedX
   this.circY = clickedY
+  this.getCircClickX = getCircClickX
+  this.getCircClickY = getCircClickY
 };
 
 
