@@ -36,6 +36,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.STRING,
           default:"#36DDD2"
         },
+        draw_eyes:{
+          type:jspsych.ParameterType.BOOL,
+          default:true,
+        },        
         gui_show:{
           type:jspsych.ParameterType.BOOL,
           default:false,
@@ -64,6 +68,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.BOOL,
           default:false,
         },
+        circ_hide:{
+          type:jspsych.ParameterType.BOOL,
+          default:false,
+        },        
         circClick_required:{
           type:jspsych.ParameterType.BOOL,
           default:true,
@@ -194,7 +202,8 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             + '<div class="bkkRight" id="bkkRight">'
             + '<div id="ctrlContainer">'
             //  BKK GUI
-              + '<div class="menu_displays" id="create_menu">'
+              + '<div class="menu_displays" id="GUI_menu">'
+              + '<div id="create_menu">'
               +'<div class="bkk_slidewrap" id="sld_spike">'
                 +'<img src="./img/ii_protrusion_a.png" width="40px">'
                 +'<input class="bkkslide" type="range" id="spikiness" min="0" max="255" value="' + trial.spike + '">'
@@ -227,8 +236,9 @@ var jsPsychBKKSurveyText = (function (jspsych) {
                 +'<input class="field-radio" type="color" id="colourPicker" value="' + trial.bkkColor + '"">'
                 +'<br>'
               +'</div>'
-            + '<div class="circContainer" id="circContainer"></div>'   
-            +'</div>' // create_menu ends             
+            +'</div>' // create_menu ends    
+            + '<div class="circContainer" id="circContainer"></div>'                   
+            +'</div>' // GUI_menu ends             
             + "</div>" // ctrlContainer ends   
             + "</div>" // bkkRight ends                  
             + "</div>";
@@ -427,8 +437,12 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           }
 
           circ.setupCircumplex(circContainer, circumplexClick)
-          bkk.runBKKExplore(setupFormUpdate);       
+          bkk.runBKKExplore(setupFormUpdate, trial.draw_eyes);       
 
+           if(trial.circ_hide){
+              const gui = document.getElementById("circContainer");
+              gui.style.display='none'
+           }
            if (trial.gui_show){
             if (trial.gui_hide_spike){
               const gui = document.getElementById("sld_spike");

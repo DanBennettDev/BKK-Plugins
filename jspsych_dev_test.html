@@ -35,27 +35,15 @@
     };
     timeline.push(intro);
 
-    var bkk_survey = {       
-      type: jsPsychBKKSurveyText, 
-      bkkColor:"#D7B27A",
-      spike:127,
-      complexity:127,
-      noise: 127,
-      move: 127,
-      smooth: 127,
-      gui_show:true,
-      gui_hide_spike:true,
-      gui_hide_complexity:true,
-      gui_hide_noise:true,
-      gui_hide_smooth:true,
-      gui_hide_move:true,                    
-      gui_hide_color:true,   
-      circClick_required: true,                           
-      preamble: 'Look at the sprite below. How does it make you feel. Mark your feeling on the graph below, then click continue.',
-      questions: [
-        // {prompt: 'Test Question ',placeholder: 'Test Placeholder?',rows:5, columns: 50, name:'test name'}
-      ]
-    }
+    var bkk_preamble = 'Look at the sprite below. How does it make you feel. Mark your feeling on the graph below, then click continue.'
+
+    var bkk_survey = { type: jsPsychBKKSurveyText, 
+      bkkColor:"#D7B27A",spike:127, complexity:127, noise: 127,move: 127, smooth: 127,
+      draw_eyes: false,
+      gui_show:true, circClick_required: true, preamble: bkk_preamble, questions: []}
+
+
+
     timeline1.push(bkk_survey);
 
 

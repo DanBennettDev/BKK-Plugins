@@ -8,9 +8,9 @@ let controls;
 let canvas;
 let rot_target=0;
 let rot_current=0;
-let rot_ease=0.1;
-let rot_speed = 1.7;
-let rot_amount = 50;
+let rot_ease=1;
+let rot_speed = 1;
+let rot_amount = 20;
 let rotateCount = 0;
 // to save the two canvases
 let svg;
@@ -59,7 +59,8 @@ let minSpikeSize = bbkkSize/2.3;
 let eyeHeight = bbkkSize/2.5;
 let eyeWidth = eyeHeight*0.6;
 let pupilSize = eyeHeight/3;
-let eyeSpace = eyeWidth*0.5
+let eyeSpace = eyeWidth*0.5;
+let drawEyes = true;
 
 const maxSpikes = 14 / 2 ;
 const minspikes = 4 / 2;
@@ -73,9 +74,9 @@ const minSmooth = 0.22;
 const maxSmooth = 0.8;
 const linCurveThreshold = 0.1;
 const min_rot_speed = 0;
-const max_rot_speed = 50;
-const min_rot_amount = 30;
-const max_rot_amount = 90;
+const max_rot_speed = 10;
+const min_rot_amount = 40;
+const max_rot_amount = 40;
 var   postSetupCallback = null;
 
 
@@ -253,20 +254,23 @@ let bkkSketch = function(p) {
       // bbkk(0, 0, bbkkSize-spikiness, bbkkSize+spikiness, complexity,noise, smooth,true);
 
       //  EYES
-      p.push()
-        p.strokeWeight(2.5)
-        p.fill("white")
-        p.rotate(-0.1);        
-        p.ellipse(-eyeSpace, -eyeSpace*0.99, eyeWidth, eyeHeight)
-        p.fill("black")        
-        p.ellipse(-eyeSpace, -eyeSpace*0.94, pupilSize*0.35, pupilSize)
+      if(drawEyes){
+        p.push()
+          p.strokeWeight(2.5)
+          p.fill("white")
+          p.rotate(-0.1);        
+          p.ellipse(-eyeSpace, -eyeSpace*0.99, eyeWidth, eyeHeight)
+          p.fill("black")        
+          p.ellipse(-eyeSpace, -eyeSpace*0.94, pupilSize*0.35, pupilSize)
 
-        p.rotate(0.11);
-        p.fill("white")        
-        p.ellipse(eyeSpace, -eyeSpace*0.99, eyeWidth, eyeHeight)
-        p.fill("black")     
-        p.ellipse(eyeSpace, -eyeSpace*0.94, pupilSize*0.35, pupilSize)        
-      p.pop()
+          p.rotate(0.11);
+          p.fill("white")        
+          p.ellipse(eyeSpace, -eyeSpace*0.99, eyeWidth, eyeHeight)
+          p.fill("black")     
+          p.ellipse(eyeSpace, -eyeSpace*0.94, pupilSize*0.35, pupilSize)        
+        p.pop()
+      }
+
     p.pop();
   }
 
@@ -363,7 +367,10 @@ function setBKKSize(size){
   resized = true;  
 }
 
-function runBKKExplore(afterSetup){
+function runBKKExplore(afterSetup, draw_eyes){
+  if (draw_eyes!=null){
+    drawEyes = draw_eyes;
+  }
   container = document.getElementById(containerDiv);
 
   svg = new p5(bkkSketch, container);

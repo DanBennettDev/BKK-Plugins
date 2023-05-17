@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- ORDER IS IMPORTANT. THESE MUST ALWAYS COME FIRST, IN THIS ORDER -->
+    <script src="./js/p5/p5.js"></script>
+    <script src="./js/circumplex.js"></script>
+    <script src="./js/bkk.js"></script>
+
+    <!-- Now the JsPsych specific stuff -->
+    <script src="./js/jspsych/jspsych.js"></script>
+    <script src="./js/jspsych/plugin-instructions.js"></script>    
+    <script src="./bkk-plugins/bkk-survey-text.js"></script>
+    <link rel="stylesheet" href="./js/jspsych/jspsych.css"></link>
+    <link rel="stylesheet" href="./bkk.css"></link>
+
+
+
+  </head>
+  <body></body>
+  <script>
+    var timeline=[];
+    var timeline1=[];
+    
+    
+    var jsPsych = initJsPsych({
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+
+    var intro = {
+      type: jsPsychInstructions,
+      pages: ['<p>Welcome to the experiment.</p><br><p>Click next to begin.</p>',],
+      show_clickable_nav: true
+    };
+    timeline.push(intro);
+
+    var bkk_preamble = 'Look at the sprite below. How does it make you feel. Mark your feeling on the graph below, then click continue.'
+
+    var bkk_stimulus = { type: jsPsychBKKSurveyText, 
+      bkkColor:'#D9D9D9', 
+      spike: 237, 
+      noise: 0, 
+      complexity: jsPsych.timelineVariable('complexity'), 
+      move: jsPsych.timelineVariable('move'), 
+      smooth: jsPsych.timelineVariable('smooth'), 
+      draw_eyes: jsPsych.timelineVariable('eyes'),
+      gui_show:false, circClick_required: true, 
+      preamble: bkk_preamble, 
+      min_duration: 1,
+      questions: []
+    } 
+
+    var bkk_sequence = {
+    timeline: [bkk_stimulus],
+    timeline_variables: [
+        {complexity: 79, move: 0, smooth: 24, eyes: false},
+        {complexity: 79, move: 0, smooth: 24, eyes: true},
+        {complexity: 79, move: 83, smooth: 24, eyes: false},
+        {complexity: 79, move: 83, smooth: 24, eyes: true},
+        {complexity: 79, move: 166, smooth: 24, eyes: false},
+        {complexity: 79, move: 166, smooth: 24, eyes: true},
+        {complexity: 79, move: 250, smooth: 24, eyes: false},
+        {complexity: 79, move: 250, smooth: 24, eyes: true},
+        {complexity: 125, move: 0, smooth: 24, eyes: false},
+        {complexity: 125, move: 0, smooth: 24, eyes: true},
+        {complexity: 125, move: 83, smooth: 24, eyes: false},
+        {complexity: 125, move: 83, smooth: 24, eyes: true},
+        {complexity: 125, move: 166, smooth: 24, eyes: false},
+        {complexity: 125, move: 166, smooth: 24, eyes: true},
+        {complexity: 125, move: 250, smooth: 24, eyes: false},
+        {complexity: 125, move: 250, smooth: 24, eyes: true},
+        {complexity: 168, move: 0, smooth: 24, eyes: false},
+        {complexity: 168, move: 0, smooth: 24, eyes: true},
+        {complexity: 168, move: 83, smooth: 24, eyes: false},
+        {complexity: 168, move: 83, smooth: 24, eyes: true},
+        {complexity: 168, move: 166, smooth: 24, eyes: false},
+        {complexity: 168, move: 166, smooth: 24, eyes: true},
+        {complexity: 168, move: 250, smooth: 24, eyes: false},
+        {complexity: 168, move: 250, smooth: 24, eyes: true},
+        {complexity: 225, move: 0, smooth: 24, eyes: false},
+        {complexity: 225, move: 0, smooth: 24, eyes: true},
+        {complexity: 225, move: 83, smooth: 24, eyes: false},
+        {complexity: 225, move: 83, smooth: 24, eyes: true},
+        {complexity: 225, move: 166, smooth: 24, eyes: false},
+        {complexity: 225, move: 166, smooth: 24, eyes: true},
+        {complexity: 225, move: 250, smooth: 24, eyes: false},
+        {complexity: 225, move: 250, smooth: 24, eyes: true},
+        {complexity: 79, move: 0, smooth: 99, eyes: false},
+        {complexity: 79, move: 0, smooth: 99, eyes: true},
+        {complexity: 79, move: 83, smooth: 99, eyes: false},
+        {complexity: 79, move: 83, smooth: 99, eyes: true},
+        {complexity: 79, move: 166, smooth: 99, eyes: false},
+        {complexity: 79, move: 166, smooth: 99, eyes: true},
+        {complexity: 79, move: 250, smooth: 99, eyes: false},
+        {complexity: 79, move: 250, smooth: 99, eyes: true},
+        {complexity: 125, move: 0, smooth: 99, eyes: false},
+        {complexity: 125, move: 0, smooth: 99, eyes: true},
+        {complexity: 125, move: 83, smooth: 99, eyes: false},
+        {complexity: 125, move: 83, smooth: 99, eyes: true},
+        {complexity: 125, move: 166, smooth: 99, eyes: false},
+        {complexity: 125, move: 166, smooth: 99, eyes: true},
+        {complexity: 125, move: 250, smooth: 99, eyes: false},
+        {complexity: 125, move: 250, smooth: 99, eyes: true},
+        {complexity: 168, move: 0, smooth: 99, eyes: false},
+        {complexity: 168, move: 0, smooth: 99, eyes: true},
+        {complexity: 168, move: 83, smooth: 99, eyes: false},
+        {complexity: 168, move: 83, smooth: 99, eyes: true},
+        {complexity: 168, move: 166, smooth: 99, eyes: false},
+        {complexity: 168, move: 166, smooth: 99, eyes: true},
+        {complexity: 168, move: 250, smooth: 99, eyes: false},
+        {complexity: 168, move: 250, smooth: 99, eyes: true},
+        {complexity: 225, move: 0, smooth: 99, eyes: false},
+        {complexity: 225, move: 0, smooth: 99, eyes: true},
+        {complexity: 225, move: 83, smooth: 99, eyes: false},
+        {complexity: 225, move: 83, smooth: 99, eyes: true},
+        {complexity: 225, move: 166, smooth: 99, eyes: false},
+        {complexity: 225, move: 166, smooth: 99, eyes: true},
+        {complexity: 225, move: 250, smooth: 99, eyes: false},
+        {complexity: 225, move: 250, smooth: 99, eyes: true},
+        {complexity: 79, move: 0, smooth: 175, eyes: false},
+        {complexity: 79, move: 0, smooth: 175, eyes: true},
+        {complexity: 79, move: 83, smooth: 175, eyes: false},
+        {complexity: 79, move: 83, smooth: 175, eyes: true},
+        {complexity: 79, move: 166, smooth: 175, eyes: false},
+        {complexity: 79, move: 166, smooth: 175, eyes: true},
+        {complexity: 79, move: 250, smooth: 175, eyes: false},
+        {complexity: 79, move: 250, smooth: 175, eyes: true},
+        {complexity: 125, move: 0, smooth: 175, eyes: false},
+        {complexity: 125, move: 0, smooth: 175, eyes: true},
+        {complexity: 125, move: 83, smooth: 175, eyes: false},
+        {complexity: 125, move: 83, smooth: 175, eyes: true},
+        {complexity: 125, move: 166, smooth: 175, eyes: false},
+        {complexity: 125, move: 166, smooth: 175, eyes: true},
+        {complexity: 125, move: 250, smooth: 175, eyes: false},
+        {complexity: 125, move: 250, smooth: 175, eyes: true},
+        {complexity: 168, move: 0, smooth: 175, eyes: false},
+        {complexity: 168, move: 0, smooth: 175, eyes: true},
+        {complexity: 168, move: 83, smooth: 175, eyes: false},
+        {complexity: 168, move: 83, smooth: 175, eyes: true},
+        {complexity: 168, move: 166, smooth: 175, eyes: false},
+        {complexity: 168, move: 166, smooth: 175, eyes: true},
+        {complexity: 168, move: 250, smooth: 175, eyes: false},
+        {complexity: 168, move: 250, smooth: 175, eyes: true},
+        {complexity: 225, move: 0, smooth: 175, eyes: false},
+        {complexity: 225, move: 0, smooth: 175, eyes: true},
+        {complexity: 225, move: 83, smooth: 175, eyes: false},
+        {complexity: 225, move: 83, smooth: 175, eyes: true},
+        {complexity: 225, move: 166, smooth: 175, eyes: false},
+        {complexity: 225, move: 166, smooth: 175, eyes: true},
+        {complexity: 225, move: 250, smooth: 175, eyes: false},
+        {complexity: 225, move: 250, smooth: 175, eyes: true},
+        {complexity: 79, move: 0, smooth: 250, eyes: false},
+        {complexity: 79, move: 0, smooth: 250, eyes: true},
+        {complexity: 79, move: 83, smooth: 250, eyes: false},
+        {complexity: 79, move: 83, smooth: 250, eyes: true},
+        {complexity: 79, move: 166, smooth: 250, eyes: false},
+        {complexity: 79, move: 166, smooth: 250, eyes: true},
+        {complexity: 79, move: 250, smooth: 250, eyes: false},
+        {complexity: 79, move: 250, smooth: 250, eyes: true},
+        {complexity: 125, move: 0, smooth: 250, eyes: false},
+        {complexity: 125, move: 0, smooth: 250, eyes: true},
+        {complexity: 125, move: 83, smooth: 250, eyes: false},
+        {complexity: 125, move: 83, smooth: 250, eyes: true},
+        {complexity: 125, move: 166, smooth: 250, eyes: false},
+        {complexity: 125, move: 166, smooth: 250, eyes: true},
+        {complexity: 125, move: 250, smooth: 250, eyes: false},
+        {complexity: 125, move: 250, smooth: 250, eyes: true},
+        {complexity: 168, move: 0, smooth: 250, eyes: false},
+        {complexity: 168, move: 0, smooth: 250, eyes: true},
+        {complexity: 168, move: 83, smooth: 250, eyes: false},
+        {complexity: 168, move: 83, smooth: 250, eyes: true},
+        {complexity: 168, move: 166, smooth: 250, eyes: false},
+        {complexity: 168, move: 166, smooth: 250, eyes: true},
+        {complexity: 168, move: 250, smooth: 250, eyes: false},
+        {complexity: 168, move: 250, smooth: 250, eyes: true},
+        {complexity: 225, move: 0, smooth: 250, eyes: false},
+        {complexity: 225, move: 0, smooth: 250, eyes: true},
+        {complexity: 225, move: 83, smooth: 250, eyes: false},
+        {complexity: 225, move: 83, smooth: 250, eyes: true},
+        {complexity: 225, move: 166, smooth: 250, eyes: false},
+        {complexity: 225, move: 166, smooth: 250, eyes: true},
+        {complexity: 225, move: 250, smooth: 250, eyes: false},
+        {complexity: 225, move: 250, smooth: 250, eyes: true}
+      ],
+      randomize_order: true
+    }
+
+    // timeline.push.apply(timeline, bkk_sequence);
+
+    timeline.push(bkk_sequence);    
+    jsPsych.run(timeline);
+
+
+</script>
+
+</html>
