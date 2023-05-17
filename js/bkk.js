@@ -17,6 +17,9 @@ let svg;
 let p2d;
 let resized = false;
 
+let debugCounter = 0
+let quit = false;
+
 
 let spikeVal; 
 let complexityVal;
@@ -117,6 +120,9 @@ let bkkSketch = function(p) {
 
 
   p.draw = function(){
+    // if(quit){
+    //   p.remove()
+    // }
     if(resized){
       // canvas = p.resizeCanvas(screenDim, screenDim);
       // p.remove()
@@ -221,6 +227,10 @@ let bkkSketch = function(p) {
     rot_speed = p.map(rot, 0, 1, min_rot_speed, max_rot_speed);
     rot_amount = p.map(rot, 0, 1, min_rot_amount, max_rot_amount);
 
+    if(debugCounter<1){
+      console.log(rot, rot_speed, min_rot_speed, max_rot_speed, rot_amount, min_rot_amount, max_rot_amount)
+      debugCounter+=1
+    }
 
 
     // Draw
@@ -245,9 +255,10 @@ let bkkSketch = function(p) {
 
       p.rotate(rot_current / 200.0);
 
-
       p.strokeWeight(4)
+
       bbkk(0, 0, bbkkSize-spikiness, bbkkSize+spikiness, complexity,noise, smooth,false);
+      
       // debug
       // p.stroke('purple'); // Change the color
       // p.strokeWeight(10); // Make the points 10 pixels in 
@@ -349,7 +360,8 @@ let bkkSketch = function(p) {
   }
 
   p.save_canvas = function() {
-      p.draw();
+    p.draw();
+
   }
 
 
@@ -371,8 +383,9 @@ function runBKKExplore(afterSetup, draw_eyes){
   if (draw_eyes!=null){
     drawEyes = draw_eyes;
   }
+  debugCounter=0
   container = document.getElementById(containerDiv);
-
+  quit = false;
   svg = new p5(bkkSketch, container);
   svg.type = "SVG";
 
@@ -430,6 +443,10 @@ function stop_animation(){
   anim_on = false;
 }
 
+function end(){
+  quit = true;
+}
+
 // Each parameter is a list of the same length
 // Points is a list of dicts for the parameters
 // Have as many dicts as you want 
@@ -484,5 +501,6 @@ function BKK(){
   this.set_fixed_params = set_fixed_params;
   this.setBKKSize = setBKKSize;
   this.set_lerp_mode = set_lerp_mode;
+  this.end = end;
 };
 

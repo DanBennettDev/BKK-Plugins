@@ -1,3 +1,17 @@
+var initialised = false;
+var bkk;
+var circ;
+var circClickCount = 0;
+var audioCtx;
+var nameParts = [];
+var bkkName = '';
+var bkkPhon = '';
+var circumplexX = null;
+var circumplexY = null;
+var userBKKs = null;
+var bkksize = 'big';
+
+
 // JSPSYCH Standard stuff
 
 var jsPsychBKKSurveyText = (function (jspsych) {
@@ -386,6 +400,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
                 this.jsPsych.finishTrial(trialdata);
 
               // BKK ADDITIONS START
+                bkk.end()
               } else {
                 alert("You cannot continue until you click to record your response")
               }
@@ -394,17 +409,16 @@ var jsPsychBKKSurveyText = (function (jspsych) {
 
 
           // BKK SPECIFIC STUFF STARTS ---------------------- 
-          var bkk = new BKK();
-          var circ = new Circumplex();
-          var audioCtx;
-          var nameParts = [];
-          var bkkName = '';
-          var bkkPhon = '';
-          var circumplexX = null;
-          var circumplexY = null;
-          var userBKKs = null;
-          var bkksize = 'big';
-          var circClickCount = 0;
+
+          if(!initialised){
+            initialised = true;
+            console.log("init")
+            bkk = new BKK();
+            circ = new Circumplex();
+            circClickCount = 0;
+          }
+
+
           window.onresize = resizeBKK;
          function resizeBKK() {
             var w = window.innerWidth;
