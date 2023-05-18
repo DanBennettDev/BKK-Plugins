@@ -45,15 +45,15 @@
       move: jsPsych.timelineVariable('move'), 
       smooth: jsPsych.timelineVariable('smooth'), 
       draw_eyes: jsPsych.timelineVariable('eyes'),
-      gui_show:true, circClick_required: false, 
+      gui_show:false, circClick_required: true, 
       preamble: bkk_preamble, 
-      min_duration: 1,
+      min_duration: 2000,
       questions: []
     } 
 
     var bkk_sequence = {
     timeline: [bkk_stimulus],
-    timeline_variables: [
+    timeline_variables: [                  
       {complexity: 79, move: 0, smooth: 24, eyes: false},
       {complexity: 79, move: 83, smooth: 24, eyes: false},
       {complexity: 79, move: 166, smooth: 24, eyes: false},

@@ -1,9 +1,14 @@
+let containerDiv = "bkkContainer";
+let svg = null;
+
+
+let bkkSketch = function(p) {
+
 let spikeSlider;
 let complexitySlider;
 let noiseSlider;
 let colourPicker;
 let container;
-let containerDiv = "bkkContainer";
 let controls;
 let canvas;
 let rot_target=0;
@@ -13,12 +18,10 @@ let rot_speed = 1;
 let rot_amount = 20;
 let rotateCount = 0;
 // to save the two canvases
-let svg;
 let p2d;
 let resized = false;
 
 let debugCounter = 0
-let quit = false;
 
 
 let spikeVal; 
@@ -63,7 +66,6 @@ let eyeHeight = bbkkSize/2.5;
 let eyeWidth = eyeHeight*0.6;
 let pupilSize = eyeHeight/3;
 let eyeSpace = eyeWidth*0.5;
-let drawEyes = true;
 
 const maxSpikes = 14 / 2 ;
 const minspikes = 4 / 2;
@@ -78,12 +80,12 @@ const maxSmooth = 0.8;
 const linCurveThreshold = 0.1;
 const min_rot_speed = 0;
 const max_rot_speed = 10;
-const min_rot_amount = 40;
-const max_rot_amount = 40;
-var   postSetupCallback = null;
+const min_rot_amount = 60;
+const max_rot_amount = 60;
 
+p.postSetupCallback = null;
+p.drawEyes = true;
 
-let bkkSketch = function(p) {
 
   //  We use a p5 svg renderer library, and two kinds of
   // Canvas. The secondre
@@ -112,17 +114,15 @@ let bkkSketch = function(p) {
     // env = new p5.Envelope(0.1, 1, 1.5, 0);
     // env.setInput(osc);
 
-    if(postSetupCallback!= null){
-      postSetupCallback();
+    if(p.postSetupCallback!= null){
+      p.postSetupCallback();
     }
 
   }
 
 
   p.draw = function(){
-    // if(quit){
-    //   p.remove()
-    // }
+
     if(resized){
       // canvas = p.resizeCanvas(screenDim, screenDim);
       // p.remove()
@@ -227,11 +227,6 @@ let bkkSketch = function(p) {
     rot_speed = p.map(rot, 0, 1, min_rot_speed, max_rot_speed);
     rot_amount = p.map(rot, 0, 1, min_rot_amount, max_rot_amount);
 
-    if(debugCounter<1){
-      console.log(rot, rot_speed, min_rot_speed, max_rot_speed, rot_amount, min_rot_amount, max_rot_amount)
-      debugCounter+=1
-    }
-
 
     // Draw
     p.background(255);       
@@ -240,7 +235,7 @@ let bkkSketch = function(p) {
       //  Start at the centre of the screen
       p.translate(p.width * 0.5, p.height * 0.5);
 
-      // Wobble to and fro
+      // Movement
       if(rot_target>rot_amount){
         rotateDir = -1;
         rotateCount++;
@@ -255,6 +250,8 @@ let bkkSketch = function(p) {
 
       p.rotate(rot_current / 200.0);
 
+
+
       p.strokeWeight(4)
 
       bbkk(0, 0, bbkkSize-spikiness, bbkkSize+spikiness, complexity,noise, smooth,false);
@@ -265,7 +262,7 @@ let bkkSketch = function(p) {
       // bbkk(0, 0, bbkkSize-spikiness, bbkkSize+spikiness, complexity,noise, smooth,true);
 
       //  EYES
-      if(drawEyes){
+      if(p.drawEyes){
         p.push()
           p.strokeWeight(2.5)
           p.fill("white")
@@ -366,9 +363,9 @@ let bkkSketch = function(p) {
 
 
 
-};
 
-function setBKKSize(size){
+
+p.setBKKSize = function (size){
   screenDim = size;
   bbkkSize = screenDim/3;
   minSpikeSize = bbkkSize/2.3;
@@ -379,29 +376,15 @@ function setBKKSize(size){
   resized = true;  
 }
 
-function runBKKExplore(afterSetup, draw_eyes){
-  if (draw_eyes!=null){
-    drawEyes = draw_eyes;
-  }
-  debugCounter=0
-  container = document.getElementById(containerDiv);
-  quit = false;
-  svg = new p5(bkkSketch, container);
-  svg.type = "SVG";
-
-  postSetupCallback = afterSetup;
-};
 
 
-
-
-function save_canvas_as_svg(){
+p.save_canvas_as_svg = function (){
   svg.save_canvas();
   svgData = document.getElementById(containerDiv).firstElementChild.innerHTML;
   return svgData;
 }
 
-function set_form_update_event(callback){
+p.set_form_update_event = function (callback){
   spikeSlider.addEventListener('mouseup', callback);
   complexitySlider.addEventListener('mouseup', callback);
   noiseSlider.addEventListener('mouseup', callback);
@@ -411,7 +394,7 @@ function set_form_update_event(callback){
 }
 
 
-function set_params(pSet){
+p.set_params = function (pSet){
   if (pSet){
     if('spikiness' in pSet){spikeSlider.value = pSet.spikiness;} 
     if("count" in pSet){ complexitySlider.value = pSet.count;}
@@ -425,7 +408,7 @@ function set_params(pSet){
 }
 
 
-function get_params(){
+p.get_params = function (){
   let uData = {};
   uData['spikiness'] =spikeSlider.value ;
   uData["count"] = complexitySlider.value ;
@@ -439,18 +422,18 @@ function get_params(){
   return uData;
 }
 
-function stop_animation(){
+p.stop_animation = function (){
   anim_on = false;
 }
 
-function end(){
-  quit = true;
+p.end = function (){
+  // svg.remove()
 }
 
 // Each parameter is a list of the same length
 // Points is a list of dicts for the parameters
 // Have as many dicts as you want 
-function set_animation(paramList, timeList, pauseList){
+p.set_animation = function (paramList, timeList, pauseList){
   anim_changeList = paramList;
   anim_timeList = timeList;
   anim_pauseList = pauseList;
@@ -461,7 +444,7 @@ function set_animation(paramList, timeList, pauseList){
 }
 
 
-function set_fixed_params(params){
+p.set_fixed_params = function (params){
   fixed_display_on = true;
   lerpMode = false;
   anim_on = false;
@@ -474,7 +457,7 @@ function set_fixed_params(params){
 }
 
 
-function set_lerp_mode(slider, params){
+p.set_lerp_mode = function (slider, params){
   lerpMode = true;
   anim_on = false;
   fixed_display_on = false;
@@ -489,18 +472,34 @@ function set_lerp_mode(slider, params){
 
 }
 
+};
+
+
+function runBKKExplore(afterSetup, draw_eyes){
+  container = document.getElementById(containerDiv);
+  svg = new p5(bkkSketch, container);
+  svg.type = "SVG";
+  svg.postSetupCallback = afterSetup;
+
+  if (draw_eyes!=null){
+    svg.drawEyes = draw_eyes;
+  }
+  return svg
+};
+
+
 
 function BKK(){
   this.runBKKExplore = runBKKExplore;
-  this.set_params = set_params;
-  this.get_params = get_params;
-  this.set_form_update_event = set_form_update_event;
-  this.save_canvas = save_canvas_as_svg;
-  this.stop_animation = stop_animation;
-  this.start_animation = set_animation;
-  this.set_fixed_params = set_fixed_params;
-  this.setBKKSize = setBKKSize;
-  this.set_lerp_mode = set_lerp_mode;
-  this.end = end;
+  // this.set_params = bkkSketch.set_params;
+  // this.get_params = bkkSketch.get_params;
+  // this.set_form_update_event = bkkSketch.set_form_update_event;
+  // this.save_canvas = bkkSketch.save_canvas_as_svg;
+  // this.stop_animation = bkkSketch.stop_animation;
+  // this.start_animation = bkkSketch.set_animation;
+  // this.set_fixed_params = bkkSketch.set_fixed_params;
+  // this.setBKKSize = bkkSketch.setBKKSize;
+  // this.set_lerp_mode = bkkSketch.set_lerp_mode;
+  // this.end = bkkSketch.end;
 };
 

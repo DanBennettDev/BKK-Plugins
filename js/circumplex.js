@@ -2,35 +2,31 @@
 
 
 // CIRCUMPLEX CONTROLS
-const textHeight = 12;
-const circlePad = 20;
-const dotPad = 5;
-const dotsize = 3;
-const arrowPad = 6;
-const xSize = 3
-let _circ_callback;
-let centreX = 0;
-let centreY = 0;
-let clickedX = 0;
-let clickedY = 0;
-let relClickX = -999;
-let relClickY = -999;
-let canvasX = 600;
-let canvasY = 600;
-
-
-// let emotionList = [ "ACTIVE","alert", "excited", "elated", "happy",
-//                  "PLEASANT", "contented", "serene", "relaxed", "calm",
-//                  "NOT ACTIVE","tired", "bored", "depressed", "sad",
-//                  "UNPLEASANT","upset", "stressed", "nervous", "tense"]
-
-let emotionList = [ "ACTIVE",
-                 "PLEASANT", 
-                 "NOT ACTIVE",
-                 "UNPLEASANT"
-                 ]
-
 let circumplexSketch = function(p) {
+
+  const textHeight = 12;
+  const circlePad = 20;
+  const dotPad = 5;
+  const dotsize = 3;
+  const arrowPad = 6;
+  const xSize = 3
+  let centreX = 0;
+  let centreY = 0;
+  let clickedX = 0;
+  let clickedY = 0;
+  let relClickX = -999;
+  let relClickY = -999;
+  let canvasX = 600;
+  let canvasY = 600;
+
+
+  let emotionList = [ "ACTIVE",
+                   "PLEASANT", 
+                   "NOT ACTIVE",
+                   "UNPLEASANT"
+                   ]
+
+   p._circ_callback;
 
   // var clickedX = 0;
   // var clickedY = 0;
@@ -142,30 +138,34 @@ let circumplexSketch = function(p) {
       relClickY /= (bbound-tbound)   
       relClickY = (relClickY * 2) - 1      
       relClickY *= -1 // Flip the axis
-      _circ_callback(relClickX, relClickY);    
+      p._circ_callback(relClickX, relClickY);    
     }
+  }
+
+
+
+
+  p.getCircClickX = function (){
+    return relClickX;
+  }
+
+  p.getCircClickY = function (){
+    return relClickY;
+  }
+
+  p.setCallback = function(clickCallback){
+    p._circ_callback = clickCallback
   }
 }
 
-function setupCircumplex(div, clickCallback){
-  _circ_callback = clickCallback
-  new p5(circumplexSketch, div);
+function setupCircumplex(div){
+  circ =  new p5(circumplexSketch, div);
+  return circ
 };
 
-function getCircClickX(){
-  return relClickX;
-}
-
-function getCircClickY(){
-  return relClickY;
-}
 
 function Circumplex(){
   this.setupCircumplex = setupCircumplex;
-  this.circX = clickedX
-  this.circY = clickedY
-  this.getCircClickX = getCircClickX
-  this.getCircClickY = getCircClickY
 };
 
 
