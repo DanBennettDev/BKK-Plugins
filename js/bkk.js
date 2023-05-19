@@ -11,6 +11,7 @@ let colourPicker;
 let container;
 let controls;
 let canvas;
+let spikeGrowth = 0.6;
 let rot_target=0;
 let rot_current=0;
 let rot_ease=1;
@@ -254,7 +255,7 @@ p.drawEyes = true;
 
       p.strokeWeight(4)
 
-      bbkk(0, 0, bbkkSize-spikiness, bbkkSize+spikiness, complexity,noise, smooth,false);
+      bbkk(0, 0, bbkkSize-spikiness, bbkkSize+(spikiness*spikeGrowth), complexity,noise, smooth,false);
       
       // debug
       // p.stroke('purple'); // Change the color

@@ -34,7 +34,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
         },
         noise: {
           type: jspsych.ParameterType.INT,
-          default: 100,
+          default: 0,
         },
         smooth: {
           type: jspsych.ParameterType.INT,
@@ -52,6 +52,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.STRING,
           default:"#36DDD2"
         },
+        draw_bkk:{
+          type:jspsych.ParameterType.BOOL,
+          default:true,
+        },               
         draw_eyes:{
           type:jspsych.ParameterType.BOOL,
           default:true,
@@ -456,7 +460,9 @@ var jsPsychBKKSurveyText = (function (jspsych) {
             null;
           } 
 
-          bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes);       
+          if(trial.draw_bkk){
+            bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes);     
+          }  
 
            if(trial.circ_hide){
               const gui = document.getElementById("circContainer");
