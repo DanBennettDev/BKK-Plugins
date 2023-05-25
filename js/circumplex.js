@@ -16,8 +16,8 @@ let circumplexSketch = function(p) {
   let clickedY = 0;
   let relClickX = -999;
   let relClickY = -999;
-  let canvasX = 600;
-  let canvasY = 600;
+  let canvasX = 500;
+  let canvasY = 500;
 
 
   let emotionList = [ "ACTIVE",
@@ -38,7 +38,7 @@ let circumplexSketch = function(p) {
     p.textSize(textHeight);
     p.noFill()
     p.stroke(200);
-    p.strokeWeight(1);
+    p.strokeWeight(3);
     p.square(cx-dotRadius,cy-dotRadius, dotRadius*2);
 
     npoints = emotionList.length;
@@ -72,6 +72,7 @@ let circumplexSketch = function(p) {
         // Draw the letter to the screen
         p.color(0,0,0)
         p.stroke(0)      
+        p.strokeWeight(1);
         p.text(emotionList[j], 0,0);
       p.pop();
       p.fill(0,0,0);
@@ -79,7 +80,7 @@ let circumplexSketch = function(p) {
 
     }
     p.noFill();
-    p.strokeWeight(1);
+    p.strokeWeight(3);
     p.stroke(200)
     p.line(centreX-(dotRadius-arrowPad), centreY, 
                 centreX+(dotRadius-arrowPad), centreY);

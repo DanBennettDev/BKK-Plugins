@@ -458,11 +458,15 @@ var jsPsychBKKSurveyText = (function (jspsych) {
 
           function setupFormUpdate() {
             null;
-          } 
+          }
 
-          if(trial.draw_bkk){
-            bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes);     
+          if(!trial.draw_bkk){
+              const gui = document.getElementById("bkkContainer");
+              gui.style.display='none'
           }  
+          
+          bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes); 
+  
 
            if(trial.circ_hide){
               const gui = document.getElementById("circContainer");

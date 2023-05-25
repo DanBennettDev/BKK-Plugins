@@ -33,6 +33,7 @@ h3 {
   font-family: "Fredoka One", sans-serif;
   padding: 0;
   margin: 0;
+  line-height: 1.2em;
 
   color: #2a3747;
 }
@@ -324,7 +325,9 @@ a.hover:hover {
   padding-top: 15px;
   padding-bottom: 8px;
   margin-top: 0px;
-  width:  100%;
+  margin-bottom:20px;
+  width:  50vw;
+  min-width: 450px;
 /*  min-height: 425px;*/
   /*border: #34daff 1px solid; */
   box-shadow: 0 1px 8px 0 #34daff3d, 0 1px 8px 0 #34daff3d;
