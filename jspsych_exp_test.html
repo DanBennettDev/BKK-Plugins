@@ -45,18 +45,20 @@
     });
 
 
-//  INTRODUCTION -----------------------------------------------------------------------------
+//  INTRODUCTION, Consent, Demographics -------------------------------------------------------------------
+
+
     // THESE PAGES ARE DEFINED IN CONSENT_ETC.JS
     var infoBlock = {
       timeline: [startPage, consent_page, demog_page],
     }
 
     //  COMMENT OUT THIS LINE FOR TESTING IF YOU WANT - IT WILL GET RID OF THE INTRO, CONSENT, and Demographics pages
-    // timeline.push(infoBlock)
+    timeline.push(infoBlock)
+
+
 
 //  TRAINING  -----------------------------------------------------------------------------
-
-
 
     var training1 = { type: jsPsychBKKSurveyText, 
 
@@ -70,12 +72,14 @@
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
         min_duration: 1000,
-        circ_hide: false,
+        circ_hide: false, // hides the circumplex if true
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
         questions: []
       } 
       timeline.push(training1)
+
+
 
     var training2 = { type: jsPsychBKKSurveyText, 
 
@@ -90,6 +94,8 @@
         questions: []
       } 
       timeline.push(training2)
+
+
 
 
     var training3 = { type: jsPsychBKKSurveyText, 
@@ -107,6 +113,14 @@
       timeline.push(training3)
 
 
+
+
+
+
+
+
+
+
     var finishTraining = {
         type: jsPsychHtmlButtonResponse,
         stimulus: '<p>Great, you have completed the training section of the study. You will now begin the experiment.</p>'+
@@ -118,7 +132,10 @@
     timeline.push(finishTraining)
 
 
+
+
 //  EXPERIMENT  -----------------------------------------------------------------------------
+
 
 
 
@@ -130,8 +147,9 @@
     let roundVals = [24, 137, 250] // spikiness or roundness of the BKK
     let countVals = [79, 225] // number of spikes
     let noiseVals = [0, 150] // how regular is the BKK (higher = less regular)
-    let showEyesVals = [false] // false = hide eyes, true = show eyes
     let lengthVals = [120, 250] // length of the protrusions
+
+    let showEyesVals = [false] // false = hide eyes, true = show eyes
 
 
     let BKK_stim_variables = []
@@ -171,8 +189,9 @@
       gui_show:false, 
       // For testing you can turn this off so you don't need to click the cirucmplex each time
       circClick_required: false, 
+
       //  For testing set this to zero so you don't need to wait
-        min_duration: (10 * 1000), // Time is in milliseconds
+      min_duration: (0 * 1000), // Time is in milliseconds
       circ_hide: false,
       draw_bkk: true,
       questions: []

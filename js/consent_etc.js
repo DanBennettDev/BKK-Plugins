@@ -2,15 +2,7 @@ var startpage = {};
 
 startpage.task = {};
 // TEXT ON THE FIRST PAGE  ----------------------------------------------------------------------
-startpage.task.blurb = '<p>This is an experiment in which you\'ll [DESCRIPTION, FIRST LINE OF TEXT] <br/> The experiment takes about 10 minutes <br /></p><br />This study is run by the University of Bristol. <br /><b>You must be 18 or over to participate and you should be fluent in written English.';
 
-// --------------  things that vary between ethics approvals --------------
-
-startpage.ethics = {};
-startpage.ethics.approval = '2574';
-startpage.ethics.name = 'Emotional Responses to Shapes';
-startpage.ethics.selection = 'In this experiement we  [ BLAH BLAH] .';
-startpage.ethics.description = 'If you decide to participate, you will [ DESCRIBE EXPERIMENT]. Detailed instructions will be provided once the task begins.';
 
 startpage.section = {};
 startpage.section.header =
@@ -19,12 +11,17 @@ startpage.section.header =
     '<h1 style="text-align:center;" id="header" class="header">' +
     '   &nbsp; University of Bristol Study: <br> Emotional Responses to Shapes </h1>';
 
+
+  startpage.task.blurb = '<p>This is an experiment in which you\'ll [DESCRIPTION, FIRST LINE OF TEXT] <br/> The experiment takes about 10 minutes <br /></p><br />This study is run by the University of Bristol. <br /><b>You must be 18 or over to participate and you should be fluent in written English.';
+
+
+
 startpage.section.start =
     '<!-- ####################### Start page ####################### -->' +
     '<div class="start">' +
     '<div class="start" style="text-align:left; border:0px solid;">' +
     '<p>' + startpage.task.blurb + '</p> ' +
-    "<p>If this is your second time, the next page will allow you to log in. If this is your first time, you will be given more information on the study and a consent form, allowing you to confirm that you are happy to be involved. You may withdraw now or at any time in the study without any consequences, and without having to give a reason.</p>" +
+    "<p>BOTTOM TEXT</p>" +
         '</div>' +
     '</div>';
 

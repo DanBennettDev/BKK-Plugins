@@ -20,7 +20,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
   'use strict';
 
   const info = {
-      name: "survey-text",
+      name: "BKK_Circumplex_response",
       parameters: {
         // BKK PARAMS START /////////////////////
 
