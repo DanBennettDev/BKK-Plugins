@@ -86,6 +86,7 @@ const max_rot_amount = 60;
 
 p.postSetupCallback = null;
 p.drawEyes = true;
+p.drawOutline = true;
 
 
   //  We use a p5 svg renderer library, and two kinds of
@@ -253,7 +254,7 @@ p.drawEyes = true;
 
 
 
-      p.strokeWeight(4)
+      p.strokeWeight( p.drawOutline ? 0.5 : 0)
 
       bbkk(0, 0, bbkkSize-spikiness, bbkkSize+(spikiness*spikeGrowth), complexity,noise, smooth,false);
       
@@ -285,7 +286,7 @@ p.drawEyes = true;
 
 
 
-  function bbkk(x, y, radius1, radius2, npoints, noisiness, smoothness, debug) {
+  function bbkk(x, y, radius1, radius2, npoints, noisiness, smoothness, debug, outline=true) {
     let angle = p.TWO_PI / npoints;
     let halfAngle = angle * 0.5;
     let controlAngle = angle * p.map(smoothness,0,1,0.15,0.25);
@@ -332,7 +333,6 @@ p.drawEyes = true;
 
       for(let i=0;i<4;i++){
         if(debug){
-          // p.point(points[i][0], points[i][1]);
           p.text(i+j*4, points[i][0], points[i][1]);            
         }else {        
           if((smoothness<linCurveThreshold)  ){
@@ -476,15 +476,15 @@ p.set_lerp_mode = function (slider, params){
 };
 
 
-function runBKKExplore(afterSetup, draw_eyes){
+function runBKKExplore(afterSetup, draw_eyes=true, draw_outline=true){
   container = document.getElementById(containerDiv);
   svg = new p5(bkkSketch, container);
   svg.type = "SVG";
   svg.postSetupCallback = afterSetup;
+  svg.drawEyes = draw_eyes;
+  svg.drawOutline = draw_outline;
 
-  if (draw_eyes!=null){
-    svg.drawEyes = draw_eyes;
-  }
+
   return svg
 };
 

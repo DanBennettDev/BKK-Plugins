@@ -1,7 +1,7 @@
 # To Do BKK Framework
 
 
-
+## NEEDED
 - [x] set slider values by params
 - [x] script sliders on/off
 - [x] capture slider values
@@ -13,6 +13,16 @@
 - [x] implement minimum time on page before submit
 - [x] Remove description response
 
-- [ ] script animation
-- [ ] Other response inputs? 
-- [ ] Adapt plugin to allow other responses.
+- [x] Option to hide contour
+- [x] Make it easier to hide training
+- [x] Add key for variable names
+- [] Option: display mannequins or words on circumplex
+- [x] Add labels for the trials vs training
+- [] Store data to file
+- [] host on server
+
+
+## NICE TO HAVE
+- [] script animation
+- [] Other response inputs? 
+- [] La

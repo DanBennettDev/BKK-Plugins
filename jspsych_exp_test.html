@@ -65,7 +65,6 @@
 
 
     var training1 = { type: jsPsychBKKSurveyText, 
-
         preamble: '<p>In the experiment you will be shown various shapes and asked to record your emotional response to the shape.</p>' +
                   '<p>To record your emotional response you will click on a graph like this. The top of the graph represents high energy feelings. The bottom of the graph represents low energy feelings. The left side represents negative feelings, and the right side represents positive feelings.</p>'+
                   '<p>You can click anywhere on the graph if that represents your feelings. If the image you are shown represents a very energetic feeling for you, you should click right at the top of the graph. If it feels neither high energy nor low energy you can click somewhere close to the middle.</p>' +
@@ -79,14 +78,15 @@
         circ_hide: false, // hides the circumplex if true
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
-        questions: []
+        questions: [],
+        data: {trialCategory: "training"}
       } 
       trainingTimeline.push(training1)
 
 
 
     var training2 = { type: jsPsychBKKSurveyText, 
-
+        data: {trialCategory: "training"},
         preamble: '<center><img src="./img/happy_excited.jpg"></img></center><p> This image is of someone happy and excited. These kinds of emotions belong in the top right corner of the graph. They are very high energy (top), and very positive (right). Click close to the top right corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
@@ -103,7 +103,7 @@
 
 
     var training3 = { type: jsPsychBKKSurveyText, 
-
+        data: {trialCategory: "training"},
         preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone very sad and low. These kinds of emotions belong in the bottom left corner of the graph. They are very low energy (top), and very negative (right). Click close to the bottom left corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
@@ -127,6 +127,7 @@
 
     var finishTraining = {
         type: jsPsychHtmlButtonResponse,
+        data: {trialCategory: "training"},
         stimulus: '<p>Great, you have completed the training section of the study. You will now begin the experiment.</p>'+
                   '<p>You will be shown 24 different shapes. For each shape click on the graph to record the emotion you think it represents. There are no right answers BLAH BLAH BLAH</p>' +
                   '<p>You will not be able to click onto the next shape until [10 seconds?] have passed. Please take at least this amount of time to reflect on each shape before recording the emotion you think it represents, and continuing.</p>' +
@@ -154,12 +155,12 @@
     //  SET THE EXPERIMENT VARIABLES HERE
     //  Experiment Parameters (all are 0-255)
     //  you can try out values for parameters using try_out_parameters.html
-    let roundVals = [24, 137, 250] // spikiness or roundness of the BKK
-    let countVals = [79, 225] // number of spikes
-    let noiseVals = [0, 150] // how regular is the BKK (higher = less regular)
-    let lengthVals = [120, 250] // length of the protrusions
-
+    let roundVals = [24, 137, 250] // spikiness or roundness of the BKK [variable name: slider_smooth]
+    let countVals = [79, 225] // number of spikes [variable name: slider_complexity]
+    let noiseVals = [0, 150] // how regular is the BKK (higher = less regular) [variable name: slider_noise]
+    let lengthVals = [120, 250] // length of the protrusions [variable name: slider_spike]
     let showEyesVals = [false] // false = hide eyes, true = show eyes
+    let drawOutline = true; // true = draw black outline around the shape
 
 
     let BKK_stim_variables = []
@@ -187,12 +188,14 @@
     var bkk_instruction = 'Look at the image below. How does it make you feel? Mark your feeling on the graph below, then click continue.'
 
     var bkk_stimulus = { type: jsPsychBKKSurveyText, 
+      data: {trialCategory: "bkk stimulus"},
       bkkColor:'#D9D9D9', 
       spike: jsPsych.timelineVariable('length'),
       complexity: jsPsych.timelineVariable('complexity'), 
       noise: jsPsych.timelineVariable('noise'), 
       smooth: jsPsych.timelineVariable('smooth'), 
       draw_eyes: jsPsych.timelineVariable('eyes'),
+      draw_outline: drawOutline,
       preamble: bkk_instruction, 
 
       // For testing you can turn GUI on to try tweaking values

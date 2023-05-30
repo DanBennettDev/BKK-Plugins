@@ -60,6 +60,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
           type:jspsych.ParameterType.BOOL,
           default:true,
         },        
+        draw_outline:{
+          type:jspsych.ParameterType.BOOL,
+          default:true,
+        },       
         gui_show:{
           type:jspsych.ParameterType.BOOL,
           default:false,
@@ -465,7 +469,7 @@ var jsPsychBKKSurveyText = (function (jspsych) {
               gui.style.display='none'
           }  
           
-          bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes); 
+          bkk = bkkClass.runBKKExplore(setupFormUpdate, trial.draw_eyes, trial.draw_outline); 
   
 
            if(trial.circ_hide){

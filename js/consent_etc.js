@@ -155,43 +155,15 @@ startpage.section.start =
             '<p>We use this information to check that our sample is representative. We do not record your name and none of this data will be connected to your identity in any of our analyses. <br/><br/> All data will be deleted if you withdraw.</p>'
             ],
         questions: [
-            {prompt: "gender", rows: 1, columns: 12, required: false},
-            {prompt: "age", rows: 1, columns: 3, required: false},
-            {prompt: "first language", rows: 1, columns: 20, required: false},
-            {prompt: "country", rows: 1, columns: 20, required: false},
+            {prompt: "gender", rows: 1, columns: 12, required: true},
+            {prompt: "age", rows: 1, columns: 3, required: true},
+            {prompt: "first language", rows: 1, columns: 20, required: true},
+            {prompt: "country", rows: 1, columns: 20, required: true},
           ],
           data: {easyName: 'demographics'}
     }
 
 
-
-    // /* define compliance check block */
-    // var compliance_check = {
-    //     type: "survey-multi-choice",
-    //     on_start: function(trial) {   
-    //       var elem = document.documentElement;
-
-    //         if (elem.requestFullscreen) {
-    //         elem.requestFullscreen();
-    //       } else if (elem.mozRequestFullScreen) { /* Firefox */
-    //         elem.mozRequestFullScreen();
-    //       } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    //         elem.webkitRequestFullscreen();
-    //       } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    //         elem.msRequestFullscreen();
-    //       }
-
-    //       // disableCopy();      
-    //     },        
-    //     preamble: ["<p align='center'><b>Please answer these questions about your level of fluency with the English language and your recent consumption of stimulants</b></p> <p>Remember, if you have taken stimulants in the last 3 hours, or you are not fluent in English you should not take part in the experiment - doing so will seriously undermine my results and may mean that months of work will be wasted.</p>"],
-    //     questions: [
-    //       {prompt: "<b>How fluent are you in written English</b>?", options: [" beginner","  intermediate", " fluent", "native speaker"], required: true, horizontal: true},
-    //       {prompt: "<b>How often do you write in English</b>: ", options: [" less than monthly", " monthly", " weekly", " daily"], required: true , horizontal: true},
-    //       {prompt: "<b>Do you have any condition which significantly affects your ability to read and write?</b>: ", options: [" No", " Yes - dyslexia", " Yes -other"], required: true, horizontal: true},          
-    //       {prompt: "<b>When was the last time you had caffeine or other stimulants (e.g. caffeinated tea or coffee, caffeine pills, modafinil, etc.) ?</b>: ", options: ["Less than 3 hours ago", " More than 3 hours ago"], required: true, horizontal: true},          
-    //     ],
-    //     data: { easyName: 'complianceChecks' },
-    // }
 
 
 
