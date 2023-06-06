@@ -620,6 +620,7 @@ button{
 
 
 
+
 /* NAMING */
 label {margin: 0; padding: 0}
 
@@ -662,4 +663,18 @@ select {
 #introNameEntryNext {
   display:  inline-block;
   visibility: hidden;
+}
+
+.jspsych-content {
+    max-width: 1000px;
+    text-align: center;
+    width: 60vw;
+    margin: auto;
+    min-width: 600px;
+}
+
+.consent1 {
+  width:60vw;
+  min-width:600px;
+  max-width:1000px;
 }

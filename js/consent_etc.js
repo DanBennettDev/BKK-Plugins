@@ -97,41 +97,42 @@ startpage.section.start =
     '       <p>This page provides information on the study, and what you what you will be asked to do if you agree to be involved. At the bottom of the page you can give consent to continue with the study. To withdraw you can simply close this browser tab at any time. If you withdraw in this way, your data will automatically be deleted from the study and destroyed. In addition, you are free to not answer specific items about yourself. </p>' +
 
     '       <p><strong>Purpose of study</strong><br />' +
-    '       We are studying  BLAH BLAH BLAH.</p>' +
+    '       We aim to understand how different features of shapes influence how people perceive their emotional meaning or "affect". This information can be used to help design systems which help children and adults record and communicate their emotions. </p>' +
 
     '       <p><strong>Time commitment</strong>' +
     '       <br />The study will take about 10 minutes' +    
 
     '       <p><strong>What do I do in this study?</strong><br />' +
-    '       You will first be introduced to the experiment environment with some training exercises. Then you will be asked to respond to 24 images, describing your emotional response</p>' +    
+    '       You will first be asked to describe your gender, age, and fluency in English. Then you will be introduced to the experiment environment with some training exercises. Finally, you will be asked to respond to 24 images, recording your emotional response</p>' +    
 
     '   <p><strong>Do I have to take part? Can I withdraw?</strong><br />' +
     '       You do not have to take part and you can withdraw at any time without having to give a reason. You can give consent by clicking the confirm button at the bottom of this page. ' +
 
     '       <p><strong>What data is captured ?</strong><br />' +
-    '       We only record your responses to the images, no information which could identify you is requested. </p>' +
+    '       We only record your responses to the images, your description of gender, age, and fluency. No information which could identify you is requested. </p>' +
     
     '       <p><strong>How will my data be used?</strong><br />' +
       
-    '       <p>The anonymous data collected from this study may be published, or used in articles for publication in journals and conference proceedings. We do not collect your name, and results from the research will be presented in accordance with rules for anonymity such that the results cannot be traced to individual participants. The outcomes of the study will also be made available for you to access if you wish - <a href="mailto:fefe@itu.dk">please contact us</a> if you wish to be informed about the outcome.</p>' +
+    '       <p>The anonymous data collected from this study may bepublished, or used in articles for publication in journals and conference proceedings. It will be shared for other scientific researchers, and the public to use also. Data and results from the research will be presented in accordance with rules for anonymity so that they cannot be traced back to individual participants. The outcomes of the study will also be made available for you to access if you wish - <a href="mailto:fefe@itu.dk">please contact us</a> if you wish to be informed about the outcome.</p>' +
 
    '       <p><strong>Will my taking part in the study be kept confidential?</strong><br />' +
-    '       Yes. Nobody except the experimenter will be able to connect your data to any identifying information. The text you type will be deleted after analysis and only the timings of keystrokes will be kept. Your participation will not be disclosed to any other parties.</p>' +
+    '       Yes. Nobody will be able to connect your data to any identifying information. Your participation will not be disclosed to any other parties.</p>' +
     // '           <p><b>Recompense to participants</b></p>' +
     // '           <p>As stated on the Amazon Mechanical Turk page, the pay for completing this HIT is <b>' + welcome.task.pay + '</b></p>' +
     '       <p><strong>What are the possible risks and disadvantages of taking part</strong><br />' +
     '       There are no known risks or disadvantages to you associated with this experiment.</p>' +
 
-  '       <p><strong>Who is organising and funding this research?: </strong><br /> This research is organised by Feng Feng, a research associate at the University of Bristol.</p>' +    
+  '       <p><strong>Who is organising this research?: </strong><br /> This research is organised by Feng Feng, a research associate at the University of Bristol.</p>' +    
 
   '       <p><strong>Who has reviewed the study?: </strong><br /> This research has been reviewed by Dr Oussama Metatla and by the Faculty Research Ethics Committee.</p>' +        '       <p>This study has been approved on ethical grounds by the University Of Bristol Faculty Of Engineering Ethics Board.&nbsp; Any questions regarding your rights as a participant may be addressed to that committee through the Faculty Ethics Officer (<a href="http://www.bris.ac.uk/red/support/governance/ethics/ethics.html">see details here</a>). Please note that you are free to withdraw from participation at any time.</p>' +
     '       <p>&nbsp;</p>' +
     '           <p align="center"><b>PARTICIPANT CONSENT</b></p>' +
     '           By continuing, you are making a decision whether or not to participate. ' +
-    '   To withdraw your consent, simply close the browser tab. Your data will be deleted from our records.' +  
+   
     '   If you wish to ask further questions before participating you may contact us via Prolific.<br/>' + 
-    '   Alternatively, if you feel you are satisfied with the information you have been provided, you can click the button below to indicate that you have read the information provided on this page, and you have decided to participate. <br/>' +
-    '   If you click this button and continue you may still withdraw at any point, and without needing to give any reason for withdrawing. You may withdraw at any time before completion of the study.'+
+    '   Alternatively, if you feel you are satisfied with the information you have been provided, you can click the button below to continue <br/>' +
+    '  <b>If you click this button you are confirming that you have read the information on this page, and that you consent to participate.</b>. You may withdraw at any time before completion of the study.'+
+     '   <b>To withdraw, simply close the browser tab at any time during the experiment.</b> Your data will then be automatically deleted.' +  
     '           <br>' +
     // '           <p align="center">' +
     // '           <input type="button" id="consentButton1" class="consent jspsych-btn" value="I agree" onclick="welcome.click.consent1()" >' +
@@ -160,7 +161,8 @@ startpage.section.start =
             {prompt: "first language", rows: 1, columns: 20, required: true},
             {prompt: "country", rows: 1, columns: 20, required: true},
           ],
-          data: {easyName: 'demographics'}
+          data: {easyName: 'demographics'},
+          data: {trialCategory: "demog"},
     }
 
 

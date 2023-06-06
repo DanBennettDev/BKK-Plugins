@@ -37,12 +37,68 @@
 
     var timeline=[];
 
-    
+
     var jsPsych = initJsPsych({
+      // HANDLE THE DATA AT THE END OF THE TRIAL
       on_finish: function() {
+
+          // capture info from Prolific
+        var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+        var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+        var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+
+        var interaction_data = jsPsych.data.getInteractionData();
+        var clicksAway = 0;
+        var exitFullscreen = false;
+        for(const id of interaction_data.trials){
+          if(id["event"]=="blur"){
+            clicksAway+=1;
+          }
+          if(id["event"]=="fullscreenexit"){
+            exitFullscreen = true;
+          }          
+        }
+
+        var demographics_data = jsPsych.data.get().filter({easyName: 'demographics'});
+        
+
+
+        var training_data = jsPsych.data.get().filter({trialCategory: 'training'});
+        //  CAPTURE ANY INFO WE NEED TO KNOW ABOUT TRAINING
+
+
+        jsPsych.data.addProperties({
+          subject_id: subject_id,
+          study_id: study_id,
+          session_id: session_id,
+          interaction_clicksAway: clicksAway,
+          interaction_exitFullscreen: exitFullscreen
+        });
+
+        var bkk_data = jsPsych.data.get().filter({trialCategory: 'bkk stimulus'});
+
+
         jsPsych.data.displayData();
       }
     });
+
+
+
+
+//  SET TESTING MODE - REMOVES INTRO AND TIMING LIMITATIONS ----------------------------------------------
+    var testing = true;
+    var excludeIntro = false;    
+
+    // THESE VALUES ARE MODIFIED BY TURNING TESTING ON
+    var trial_time_lower_limit = 10 * 1000  // how long you have to stay on each BKK page
+    var force_circumplex_click = true;      // if true you have to click the circumplex before continuing
+
+    if(testing){
+      trial_time_lower_limit = 0;
+      force_circumplex_click = false;
+
+    }
 
 
 //  INTRODUCTION, Consent, Demographics -------------------------------------------------------------------
@@ -54,7 +110,9 @@
     }
 
     //  COMMENT OUT THIS LINE FOR TESTING IF YOU WANT - IT WILL GET RID OF THE INTRO, CONSENT, and Demographics pages
-    // timeline.push(infoBlock)
+    if(!excludeIntro){
+      timeline.push(infoBlock)
+    }
 
 
 
@@ -65,7 +123,7 @@
 
 
     var training1 = { type: jsPsychBKKSurveyText, 
-        preamble: '<p>In the experiment you will be shown various shapes and asked to record your emotional response to the shape.</p>' +
+        preamble: '<h1>Training Section</h1><p>In the experiment you will be shown various shapes and asked to record your emotional response to the shape.</p>' +
                   '<p>To record your emotional response you will click on a graph like this. The top of the graph represents high energy feelings. The bottom of the graph represents low energy feelings. The left side represents negative feelings, and the right side represents positive feelings.</p>'+
                   '<p>You can click anywhere on the graph if that represents your feelings. If the image you are shown represents a very energetic feeling for you, you should click right at the top of the graph. If it feels neither high energy nor low energy you can click somewhere close to the middle.</p>' +
                   '<p>Blah blah blah, Feng can explain it better I think.</p>' +
@@ -74,7 +132,7 @@
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
-        min_duration: 1000,
+        min_duration: trial_time_lower_limit,
         circ_hide: false, // hides the circumplex if true
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
@@ -91,11 +149,12 @@
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
-        min_duration: 1000,
+        min_duration: trial_time_lower_limit,
         circ_hide: false,
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
-        questions: []
+        questions: [],
+        data: {trialCategory: "training"}
       } 
       trainingTimeline.push(training2)
 
@@ -104,15 +163,16 @@
 
     var training3 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone very sad and low. These kinds of emotions belong in the bottom left corner of the graph. They are very low energy (top), and very negative (right). Click close to the bottom left corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone very sad and down. These kinds of emotions belong in the bottom left corner of the graph. They are very low energy (top), and very negative (right). Click close to the bottom left corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
-        min_duration: 1000,
+        min_duration: trial_time_lower_limit,
         circ_hide: false,
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
-        questions: []
+        questions: [],
+        data: {trialCategory: "training"}
       } 
       trainingTimeline.push(training3)
 
@@ -142,8 +202,9 @@
     }
 
 
-    //  Comment this if you are testing and don't want to see the training stuff
-    // timeline.push(trainingBlock);    
+    if(!excludeIntro){
+      timeline.push(trainingBlock)
+    }
 
 //  EXPERIMENT  -----------------------------------------------------------------------------
 
@@ -198,13 +259,11 @@
       draw_outline: drawOutline,
       preamble: bkk_instruction, 
 
-      // For testing you can turn GUI on to try tweaking values
-      gui_show:false, 
+      gui_show: false, 
       // For testing you can turn this off so you don't need to click the cirucmplex each time
-      circClick_required: false, 
+      circClick_required: force_circumplex_click, 
 
-      //  For testing set this to zero so you don't need to wait
-      min_duration: (0 * 1000), // Time is in milliseconds
+      min_duration: (trial_time_lower_limit), 
       circ_hide: false,
       draw_bkk: true,
       questions: []
