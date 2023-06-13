@@ -214,8 +214,10 @@ var jsPsychBKKSurveyText = (function (jspsych) {
                       "</div>";
           }
 
-          html += ""
+          var circumplexX = null;
+          var circumplexY = null;
 
+          html += ""
           // BKK SPECIFIC STUFF STARTS----------------------------------------------------------------------------------------------
 
           // DIVS FOR THE BKK STIMULUS

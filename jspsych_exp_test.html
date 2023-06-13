@@ -60,10 +60,16 @@
           }          
         }
 
-        var demographics_data = jsPsych.data.get().filter({easyName: 'demographics'});
+        var demogdata = jsPsych.data.get()
+              .filter({easyName: 'demographics'})
+              .values()["0"]["response"];
+
+        var age = demogdata["Q0"];
+        var gender = demogdata["Q1"];
+        var country = demogdata["Q1"];
+
+        console.log(country)
         
-
-
         var training_data = jsPsych.data.get().filter({trialCategory: 'training'});
         //  CAPTURE ANY INFO WE NEED TO KNOW ABOUT TRAINING
 
@@ -73,12 +79,15 @@
           study_id: study_id,
           session_id: session_id,
           interaction_clicksAway: clicksAway,
-          interaction_exitFullscreen: exitFullscreen
+          interaction_exitFullscreen: exitFullscreen,
+          age: age,
+          gender: gender,
+          country: country
         });
 
         var bkk_data = jsPsych.data.get().filter({trialCategory: 'bkk stimulus'});
 
-
+        bkk_data.localSave('csv', jsPsych.randomization.randomID(32) + '.csv')
         jsPsych.data.displayData();
       }
     });
@@ -88,7 +97,7 @@
 
 //  SET TESTING MODE - REMOVES INTRO AND TIMING LIMITATIONS ----------------------------------------------
     var testing = true;
-    var excludeIntro = false;    
+    var excludeIntro = true;    
 
     // THESE VALUES ARE MODIFIED BY TURNING TESTING ON
     var trial_time_lower_limit = 10 * 1000  // how long you have to stay on each BKK page
@@ -106,13 +115,16 @@
 
     // THESE PAGES ARE DEFINED IN CONSENT_ETC.JS
     var infoBlock = {
-      timeline: [startPage, consent_page, demog_page],
+      timeline: [startPage, consent_page],
     }
 
     //  COMMENT OUT THIS LINE FOR TESTING IF YOU WANT - IT WILL GET RID OF THE INTRO, CONSENT, and Demographics pages
     if(!excludeIntro){
       timeline.push(infoBlock)
     }
+
+    timeline.push(demog_page)
+
 
 
 

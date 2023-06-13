@@ -20,14 +20,15 @@
 - [x] Capture User ID etc. from prolific
 - [x] Capture interaction data
 
-- [] Add demographics data
-- [] format into a CSV
-- [] Add check questions
-- [] Prolific - Return user to Prolific
+- [x] Add demographics data
+- [x] format into a CSV
+- [] save data on server
+- [] Handle Security on Files (prevent outside people accessing or deleting them)
 - [] Training - set up to correct users if they get it wrong
 - [] Training - record error trials and add to data
 - [] Add full screen and check full screen data
-- [] Handle Security on Files (prevent outside people accessing or deleting them)
+- [] Add check questions
+- [] Prolific - Return user to Prolific
 - [] Option: display mannequins or words on circumplex
 - [] Switch off no-store in metadata on files in gcloud
 
