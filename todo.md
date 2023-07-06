@@ -22,19 +22,16 @@
 
 - [x] Add demographics data
 - [x] format into a CSV
-- [] save data on server
-- [] Handle Security on Files (prevent outside people accessing or deleting them)
+- [x] save data on server
+- [x] Handle Security on Files (prevent outside people accessing or deleting them)
 - [] Training - set up to correct users if they get it wrong
 - [] Training - record error trials and add to data
 - [] Add full screen and check full screen data
 - [] Add check questions
 - [] Prolific - Return user to Prolific
-- [] Option: display mannequins or words on circumplex
-- [] Switch off no-store in metadata on files in gcloud
-
 
 
 ## NICE TO HAVE
 - [] script animation
 - [] Other response inputs? 
-- [] La
+- [] Option: display mannequins or words on circumplex
