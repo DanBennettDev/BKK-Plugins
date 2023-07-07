@@ -114,17 +114,19 @@ function resizeBKK() {
       null
   }
 
-
-
-
-
-  circContainer = "circContainer"
+    circContainer = "circContainer"
   function setupFormUpdate() {
-    bkk.set_form_update_event(recordParameters) 
+    null
+    // bkk.set_form_update_event(recordParameters) 
   }
 
-  // circ.setupCircumplex(circContainer, circumplexClick)
-  bkk.runBKKExplore(setupFormUpdate);   
+  var bkkClass
+  bkkClass = new BKK();
+  var bkk
+  var draw_eyes = true
+  var draw_outline = true
+  bkk = bkkClass.runBKKExplore(setupFormUpdate, draw_eyes , draw_outline); 
+
 
 </script>
 

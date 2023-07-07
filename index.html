@@ -107,7 +107,7 @@
 
         var postdata = bkk_data.json()
 
-        $.post('submit',{"content": postdata})
+        // $.post('submit',{"content": postdata})
 
         // Handle redirect back to prolific
         // setTimeout(callback,1000)
@@ -119,7 +119,7 @@
 
 //  SET TESTING MODE - REMOVES INTRO AND TIMING LIMITATIONS ----------------------------------------------
     var testing = true;
-    var excludeIntro = true;    
+    var excludeIntro = false;    
 
     // THESE VALUES ARE MODIFIED BY TURNING TESTING ON
     var trial_time_lower_limit = 10 * 1000  // how long you have to stay on each BKK page
@@ -154,13 +154,40 @@
 
 
     trainingTimeline = []
+    var instructioncorrect= false
+
+
+    // /* define a page for the incorrect response */
+    // var showsplash = true;
+    // var splash_screen = {
+    //   type: 'html-button-response',
+    //   timing_post_trial: 0,
+    //   choices: ['Click here to read the instructions again'],
+    //   on_trial_start: function() {setTimeout(function() {setDisplay("jspsych-btn","")}, 500)},
+    //   is_html: true,
+    //   data: { easyName: 'fail', taskType: jsPsych.timelineVariable('taskType')},      
+    //   stimulus: "You didn't click in the right area. Re-read the instructions and try again."
+    // }
+
+    // /* ...but push it to a conditional node that only shows it if the response was wrong */
+    // var conditional_splash = {
+    //   timeline: [splash_screen],
+    //   conditional_function: function(data) {
+    //     return !instructioncorrect // skip if correct
+    //   }
+    // }
 
 
     var training1 = { type: jsPsychBKKSurveyText, 
-        preamble: '<h1>Training Section</h1><p>In the experiment you will be shown various shapes and asked to record your emotional response to the shape.</p>' +
-                  '<p>To record your emotional response you will click on a graph like this. The top of the graph represents high energy feelings. The bottom of the graph represents low energy feelings. The left side represents negative feelings, and the right side represents positive feelings.</p>'+
-                  '<p>You can click anywhere on the graph if that represents your feelings. If the image you are shown represents a very energetic feeling for you, you should click right at the top of the graph. If it feels neither high energy nor low energy you can click somewhere close to the middle.</p>' +
-                  '<p>Blah blah blah, Feng can explain it better I think.</p>' +
+        preamble: '<h1>Training Section</h1><p>In the experiment you will be shown various shapes and asked to record your emotional response to each shape. The next few pages will introduce how to record your response <b>you must read all of this page. The page is timed and you cannot move forward more quickly by not reading the page. </b> </p>' +
+
+
+                  '<p>To record your emotional response you will click on a graph like the one shown below. The top of the graph represents very high energy feelings. The bottom of the graph represents very low energy feelings. The centre represents neutral feelings. You can click anywhere from top to bottom to record more or less energetic feelings</p>'+
+
+                  '<p> Similarly, the left side of the graph represents very negative feelings, and the right side represents very positive feelings. Again, the centre represents neutral feelings, and you can click at any point which represents your feeling </p>'+
+
+                  '<p>For each shape you should look at the shape and take some time to reflect on how it feels to you. Then you should click on the place on the graph that represents how you feel.  </p>'  +
+
                   '<p>Click anywhere on the graph and then click submit to continue.</p>' +
                   '<br>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
@@ -170,16 +197,30 @@
         circ_hide: false, // hides the circumplex if true
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
-        questions: [],
-        data: {trialCategory: "training"}
+        questions: [],      
+        data: {trialCategory: "training"},
+      on_trial_start: function() { setTimeout(function() {setDisplay("jspsych-btn","")}, 1000)},
+      on_finish: function(data) {
+        console.log(data.valence, data.arousal)
+
+          // var correct = jsPsych.timelineVariable('correct_answers', true)        
+          // instructioncorrect = false; 
+          // if( data.responses == correct) {
+          //   action = false;
+          //   instructioncorrect = true;
+          // }
+
+        }
       } 
       trainingTimeline.push(training1)
+      // tr_loop_1.push(training1)
+
 
 
 
     var training2 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/happy_excited.jpg"></img></center><p> This image is of someone happy and excited. These kinds of emotions belong in the top right corner of the graph. They are very high energy (top), and very positive (right). Click close to the top right corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/happy_excited.jpg"></img></center><p> This image is of someone happy and excited. These kinds of feelings belong in the top right corner of the graph. They are very high energy (top), and very positive (right). Click close to the top right corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -197,7 +238,7 @@
 
     var training3 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone very sad and down. These kinds of emotions belong in the bottom left corner of the graph. They are very low energy (top), and very negative (right). Click close to the bottom left corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone very sad or depressed. These kinds of feelings belong in the bottom left corner of the graph. They are very low energy (bottom), and very negative (left). Click close to the bottom left corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -212,8 +253,53 @@
 
 
 
+    var training4 = { type: jsPsychBKKSurveyText, 
+        data: {trialCategory: "training"},
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone feeling relaxed and cozy. These kinds of feelings belong in the bottom right corner of the graph. They are very low energy (bottom), and very positive (right). Click close to the bottom right corner of the graph, and then click submit.</p>', 
+        // For testing you can turn this off so you don't need to click the cirucmplex each time
+        circClick_required: true, 
+        //  For testing set this to zero so you don't need to wait
+        min_duration: trial_time_lower_limit,
+        circ_hide: false,
+        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
+        gui_show:false, 
+        questions: [],
+        data: {trialCategory: "training"}
+      } 
+      trainingTimeline.push(training4)
 
 
+    var training5 = { type: jsPsychBKKSurveyText, 
+        data: {trialCategory: "training"},
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> This image is of someone feeling angry and enraged. These kinds of feelings belong in the top left corner of the graph. They are very high energy (top), and very negative (right). Click close to the top left corner of the graph, and then click submit.</p>', 
+        // For testing you can turn this off so you don't need to click the cirucmplex each time
+        circClick_required: true, 
+        //  For testing set this to zero so you don't need to wait
+        min_duration: trial_time_lower_limit,
+        circ_hide: false,
+        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
+        gui_show:false, 
+        questions: [],
+        data: {trialCategory: "training"}
+      } 
+      trainingTimeline.push(training5)
+
+
+
+    var training6 = { type: jsPsychBKKSurveyText, 
+        data: {trialCategory: "training"},
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> Many feelings are in-between these extremes. YOu can use the whole graph to record your feelings. If they are more neutral than the feelings you have seen so far, you can click closer to the middle. For example this picture shows medium energy, fairly positive feelings. These should be somewhere in the middle of left and right middle (fairly neutral). And somewhere in the top half of the graph, not too high. Click somewhere in that area, then click submit</p>', 
+        // For testing you can turn this off so you don't need to click the cirucmplex each time
+        circClick_required: true, 
+        //  For testing set this to zero so you don't need to wait
+        min_duration: trial_time_lower_limit,
+        circ_hide: false,
+        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
+        gui_show:false, 
+        questions: [],
+        data: {trialCategory: "training"}
+      } 
+      trainingTimeline.push(training6)
 
 
 
@@ -222,10 +308,7 @@
     var finishTraining = {
         type: jsPsychHtmlButtonResponse,
         data: {trialCategory: "training"},
-        stimulus: '<p>Great, you have completed the training section of the study. You will now begin the experiment.</p>'+
-                  '<p>You will be shown 24 different shapes. For each shape click on the graph to record the emotion you think it represents. There are no right answers BLAH BLAH BLAH</p>' +
-                  '<p>You will not be able to click onto the next shape until [10 seconds?] have passed. Please take at least this amount of time to reflect on each shape before recording the emotion you think it represents, and continuing.</p>' +
-                  '<br>', 
+        stimulus: '<p>Thanks, The next four pages will show emotional photographs. Record your feelings about these photographs in the way you have been guided in the last few pages </p>' , 
         choices: ["continue"]
     }
     trainingTimeline.push(finishTraining)
@@ -234,6 +317,13 @@
     var trainingBlock = {
       timeline: trainingTimeline,
     }
+
+
+        // ' You have now completed the training section of the study. You will now begin the experiment.</p>'+
+        //           '<p>You will be shown 24 different shapes. For each shape click on the graph to record the emotion you think it represents. There are no "wrong" answers so long as you reflect and think about how the shape feels to you - just record how you feel</p>' +
+        //           '<p>For each page you will not be able to move on until [10 seconds?] have passed. For each time take the time to reflect on how the shape feels to you before recording your feeling.</p>' +
+        //           '<br>'
+
 
 
     if(!excludeIntro){

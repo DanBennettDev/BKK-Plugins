@@ -19,11 +19,11 @@
 - [x] host on server
 - [x] Capture User ID etc. from prolific
 - [x] Capture interaction data
-
 - [x] Add demographics data
 - [x] format into a CSV
 - [x] save data on server
 - [x] Handle Security on Files (prevent outside people accessing or deleting them)
+
 - [] Training - set up to correct users if they get it wrong
 - [] Training - record error trials and add to data
 - [] Add full screen and check full screen data

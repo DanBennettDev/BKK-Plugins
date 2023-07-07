@@ -12,7 +12,11 @@ startpage.section.header =
     '   &nbsp; University of Bristol Study: <br> Emotional Responses to Shapes </h1>';
 
 
-  startpage.task.blurb = '<p>This is an experiment in which you\'ll [DESCRIPTION, FIRST LINE OF TEXT] <br/> The experiment takes about 10 minutes <br /></p><br />This study is run by the University of Bristol. <br /><b>You must be 18 or over to participate and you should be fluent in written English.';
+  startpage.task.blurb = '<p>This is an experiment in which you\'ll look at various shapes, and tell us how they make you feel. <br/> The experiment will take <b>a minimum of 10 minutes </b> and cannot be completed more quickly than this.</p>'+
+    '<p>Because we need you to reflect on how shapes make you feel, the experiment will prevent you from moving on too quickly. <b>You will not be able to click continue on each page until enough time has passed to reflect on the image</b>. This may feel a little slow, but it is neccessary for our experiment.</p>' +
+     // '<p>If you rapidly and repeatedly click on the "continue" button to get through as quickly as possible this will be recorded, and treated as a lack of engagement. This may cause your submission may be rejected. </p>'  +
+      '<p><b>Some users on prolific like to complete surveys as quickly as possible, and they choose surveys that are quick and easy to complete. We understand this, but it will not be possible in this experiment.</b> If you are not happy with this, please return to prolific now and indicate that you do not wish to participate.</p>'  +
+    'This study is run by the University of Bristol. <br /><b>You must be 18 or over to participate and you should be fluent in written English.';
 
 
 
@@ -21,7 +25,6 @@ startpage.section.start =
     '<div class="start">' +
     '<div class="start" style="text-align:left; border:0px solid;">' +
     '<p>' + startpage.task.blurb + '</p> ' +
-    "<p>BOTTOM TEXT</p>" +
         '</div>' +
     '</div>';
 

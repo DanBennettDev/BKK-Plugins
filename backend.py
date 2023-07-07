@@ -35,7 +35,6 @@ class WriteDataObject(webapp2.RequestHandler):
 
     def post(self):
         data = DataObject()
-
         data.content = self.request.get('content')
         # data.exp = self.request.get('exp')
         data.put()

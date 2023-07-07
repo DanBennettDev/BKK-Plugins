@@ -253,7 +253,7 @@ p.drawOutline = true;
       p.rotate(rot_current / 200.0);
 
 
-
+      // you might want to change the width of the outline
       p.strokeWeight( p.drawOutline ? 0.5 : 0)
 
       bbkk(0, 0, bbkkSize-spikiness, bbkkSize+(spikiness*spikeGrowth), complexity,noise, smooth,false);
