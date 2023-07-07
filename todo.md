@@ -26,6 +26,7 @@
 
 - [] Training - set up to correct users if they get it wrong
 - [] Training - record error trials and add to data
+- [] don't display continue button until timer passes
 - [] Add full screen and check full screen data
 - [] Add check questions
 - [] Prolific - Return user to Prolific
