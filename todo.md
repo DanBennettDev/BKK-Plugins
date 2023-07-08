@@ -23,13 +23,17 @@
 - [x] format into a CSV
 - [x] save data on server
 - [x] Handle Security on Files (prevent outside people accessing or deleting them)
+- [x] Training - set up to correct users if they get it wrong
+- [x] Add check questions
+- [x] Put check coordinates in the right place
+- [x] Make "continue" button higher on the screen
+- [x] Fix images
+- [x] Training - record "calibration" trials and add to data
 
-- [] Training - set up to correct users if they get it wrong
-- [] Training - record error trials and add to data
+
+- [] Prolific - Return user to Prolific
 - [] don't display continue button until timer passes
 - [] Add full screen and check full screen data
-- [] Add check questions
-- [] Prolific - Return user to Prolific
 
 
 ## NICE TO HAVE

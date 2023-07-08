@@ -179,7 +179,7 @@ startpage.section.start =
     /* define the debrief block */
     var debrief_page = {
       type: jsPsychInstructions,
-      pages: ['<p>Thanks for participating.</p><br><p>Click submit to finish.</p>',],
+      pages: ['<p>Thanks for participating.</p><br><p>Click next to submit your data.</p>',],
       show_clickable_nav: true
     };
 
