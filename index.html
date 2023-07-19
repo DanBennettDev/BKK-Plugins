@@ -100,7 +100,7 @@
         });
 
         var bkk_data = jsPsych.data.get().filter([{trialCategory: 'bkk stimulus'},
-                                                          {trialCategory: 'oasis'}]);
+                                                          {trialCategory: 'calibration'}]);
 
         // bkk_data.localSave('csv', jsPsych.randomization.randomID(32) + '.csv')
         // jsPsych.data.displayData();
@@ -108,26 +108,32 @@
 
         var postdata = bkk_data.json()
 
-        // $.post('submit',{"content": postdata})
-
+        $.post('submit',{"content": postdata})
+        function cb(){
+          console.log("redirect")
+           window.location = "https://app.prolific.co/submissions/complete?cc=CUINYYFQ"
+        }
         // Handle redirect back to prolific
-        // setTimeout(callback,1000)
+        setTimeout(cb,1000)
+
+       
       }
     });
 
 
 
+// OVERALL PARAMETERS (bypassed in testing mode)
+    var trial_time_lower_limit = 6.5 * 1000  // how long you have to stay on each BKK page
+    var intro_page_time = 50 * 1000  // how long you have to spend on the intro page
+    var force_circumplex_click = true;      // if true you have to click the circumplex before continuing
 
 //  SET TESTING MODE - REMOVES INTRO AND TIMING LIMITATIONS ----------------------------------------------
-    var testing = true;
+    var testing = false;
     var excludeIntro = false;    
-
-    // THESE VALUES ARE MODIFIED BY TURNING TESTING ON
-    var trial_time_lower_limit = 10 * 1000  // how long you have to stay on each BKK page
-    var force_circumplex_click = true;      // if true you have to click the circumplex before continuing
 
     if(testing){
       trial_time_lower_limit = 0;
+      intro_page_time= 0;
       force_circumplex_click = false;
 
     }
@@ -184,7 +190,7 @@
 
                   '<p> Similarly, the left side of the graph represents very negative feelings, such as gloomy or annoyed; and the right side represents very positive feelings, such as delighted or satisfied. Again, the centre represents neutral feelings, and you can click at any point which represents your feeling.</p>'+
 
-                  '<p>For each shape you should look at the shape and take some time to reflect on how it feels to you. Then you should click on the place on the graph that represents how you feel.  </p>'  +
+                  '<p>For each shape you should look at the shape and take some time to reflect on how it makes you feel. Then you should click on the place on the graph that represents how you feel.  </p>'  +
 
                   '<p><b>Over the next few pages we will give some examples of using the circumplex. For each page, follow the instructions on where to click.</b> </p>'  +                  
                   '<p>Click anywhere on the graph and then click submit to continue.</p>' +
@@ -192,7 +198,7 @@
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
-        min_duration: trial_time_lower_limit,
+        min_duration: intro_page_time,
         circ_hide: false, // hides the circumplex if true
         draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
         gui_show:false, 
@@ -207,7 +213,7 @@
     var tr_2 = []
     var training2 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/happy_excited.jpg"></img></center><p> This image is of someone happy and excited. These kinds of feelings belong in the top right corner of the graph. They are very high energy (top), and very positive (right). Click close to the top right corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/happy_excited.jpg"></img></center><p> This image is of someone happy and excited. These kinds of feelings belong in the top right corner of the graph. They are very high energy (top), and very positive (right). Click cin the top right corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -242,7 +248,7 @@
     var tr_3 = []
     var training3 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/sad.jpg"></img></center><p> Great. Now this image is of someone very sad or depressed. These kinds of feelings belong in the bottom left corner of the graph. They are very low energy (bottom), and very negative (left). Click close to the bottom left corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/sad.jpg"></img></center><p> Great. Now this image is of someone very sad or depressed. These kinds of feelings belong in the bottom left corner of the graph. They are very low energy (bottom), and very negative (left). Click in the bottom left corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -274,7 +280,7 @@
     var tr_4 = []
     var training4 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/relaxed.jpg"></img></center><p> This image is of someone feeling relaxed and cozy. These kinds of feelings belong in the bottom right corner of the graph. They are very low energy (bottom), and very positive (right). Click close to the bottom right corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/relaxed.jpg"></img></center><p> This image is of someone feeling relaxed and cozy. These kinds of feelings belong in the bottom right corner of the graph. They are very low energy (bottom), and very positive (right). Click in the bottom right corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -305,7 +311,7 @@
     var tr_5 = []
     var training5 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/angry.jpg"></img></center><p> This image is of someone feeling angry and aggressive. These kinds of feelings belong in the top left corner of the graph. They are very high energy (top), and very negative (right). Click close to the top left corner of the graph, and then click submit.</p>', 
+        preamble: '<center><img src="./img/angry.jpg"></img></center><p> This image is of someone feeling angry and aggressive. These kinds of feelings belong in the top left corner of the graph. They are very high energy (top), and very negative (right). Click in the top left corner of the graph, and then click submit.</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -337,7 +343,7 @@
     var tr_6 = []
     var training6 = { type: jsPsychBKKSurveyText, 
         data: {trialCategory: "training"},
-        preamble: '<center><img src="./img/ambiguous.jpg"></img></center><p> Many feelings are in-between these extremes. You can use anywhere on the graph to record your feelings, closer to the middle or to the edges depending on how you feel. How does this image make you feel? Click on the graph to record your feeling, then click submit</p>', 
+        preamble: '<center><img src="./img/ambiguous.jpg"></img></center><p> Many feelings are in-between these extremes. You can use anywhere on the graph to record your feelings, closer to the middle or to the edges depending on how you feel. How does this image make you feel? Click on the graph to record how it makes you feel, then click submit</p>', 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -366,7 +372,7 @@
     var finishTraining = {
         type: jsPsychHtmlButtonResponse,
         data: {trialCategory: "training"},
-        stimulus: '<p>Thanks, The next pages will show photographs and shapes. Now record your own feelings about these photographs in the way you have been guided in the last few pages </p>' , 
+        stimulus: '<p>Thanks, The next pages will show images. Record how these images make you feel in the way you have been guided </p>' , 
         choices: ["continue"]
     }
     trainingTimeline.push(finishTraining)
@@ -382,13 +388,12 @@
 
 
 
-//  OASIS --------------------------------------------------------------------------------------------------
-
+//  BKK  calibration --------------------------------------------------------------------------------------------------
 var htmlpre = '<center><img src="'
-var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>'
+var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you feel, then record this on the graph</p>'
 
  var teststim = { type: jsPsychBKKSurveyText, 
-        data: {trialCategory: jsPsych.timelineVariable("cat") },
+        data: {trialCategory: jsPsych.timelineVariable("cat"), trialID: jsPsych.timelineVariable("stimName") },
         preamble: function(){
           var html=jsPsych.timelineVariable('img')
           return html
@@ -403,27 +408,10 @@ var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you fe
         questions: []
       }
 
-    var oasisBlock = {
-      timeline: [teststim],
-      timeline_variables: [ {img: htmlpre + "./img/fire9.jpg" + htmlpost, cat: "calibration"},
-                            {img: htmlpre + "./img/fireworks2.jpg" + htmlpost, cat: "calibration"},
-                            {img: htmlpre + "./img/garbagedump1.jpg + htmlpost", cat: "calibration"},
-                            {img: htmlpre + "./img/lake16.jpg" + htmlpost, cat: "calibration"}
-                          ],
-      randomize_order: true
-    }
-
-
-    if(!excludeIntro){
-      timeline.push(oasisBlock)
-    }
-
-//  BKK  calibration --------------------------------------------------------------------------------------------------
-
     var bkkCalibrationBlock = {
       timeline: [teststim],
-      timeline_variables: [ {img: htmlpre + "./img/kk.jpg" + htmlpost, cat: "calibration"},
-                            {img: htmlpre + "./img/bb.jpg" + htmlpost, cat: "calibration"}
+      timeline_variables: [ {img: htmlpre + "./img/kk.jpg" + htmlpost, cat: "calibration", stimName:"kiki"},
+                            {img: htmlpre + "./img/bb.jpg" + htmlpost, cat: "calibration", stimName:"bouba"}
                           ],
       randomize_order: true
     }
@@ -436,14 +424,16 @@ var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you fe
     var finishPrep = {
         type: jsPsychHtmlButtonResponse,
         data: {trialCategory: "training"},
-        stimulus: '<p>Thanks. You have now completed the preparation section of the study.  You will now begin the experiment.</p>' +
-                  '<p>You will be shown 24 (TODO: or 54, we need to justify with the pilot data from May.) different shapes. For each shape click on the graph to record the emotion you think it represents. There are no "wrong" answers so long as you reflect and think about how the shape feels to you - just record how you feel.</p>' +
-                  '<p>For each page you will not be able to move on until [5-10 seconds?] have passed. For each time take the time to reflect on how the shape feels to you before recording your feeling.</p>' +
+        stimulus: '<p>Thanks!</p>' +
+                  '<p>You will now be shown 36 shapes and images. Each time take a few moments to look and reflect before recording how they make you feel. Then click on the graph to record the feeling.</p>' +
+                  '<p>The website limits how quickly you can move through the questions, so you will not be able to save time by clicking quickly and not reflecting. </p>' + 
                   '<br>', 
         choices: ["continue"]
     }
-    timeline.push(finishPrep)
 
+    if(!excludeIntro){
+      timeline.push(finishPrep)
+    }
 
 
 //  EXPERIMENT  -----------------------------------------------------------------------------
@@ -486,7 +476,7 @@ var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you fe
     var bkk_instruction = 'Look at the image below. How does it make you feel? Mark your feeling on the graph below, then click continue.'
 
     var bkk_stimulus = { type: jsPsychBKKSurveyText, 
-      data: {trialCategory: "bkk stimulus"},
+      data: {trialCategory: "bkk stimulus", trialID: "bbkk" },
       bkkColor:'#D9D9D9', 
       spike: jsPsych.timelineVariable('length'),
       complexity: jsPsych.timelineVariable('complexity'), 
@@ -513,6 +503,31 @@ var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you fe
     }
 
     timeline.push(bkk_sequence);    
+
+    var bkk_sequence2 = {
+    timeline: [bkk_stimulus],
+    randomize_order: true,
+    timeline_variables: BKK_stim_variables
+    }
+    timeline.push(bkk_sequence2);    
+
+
+//  OASIS --------------------------------------------------------------------------------------------------
+
+    var oasisBlock = {
+      timeline: [teststim],
+      timeline_variables: [ {img: htmlpre + "./img/fire9.jpg" + htmlpost, cat: "calibration", stimName:"fire9"},
+                            {img: htmlpre + "./img/fireworks2.jpg" + htmlpost, cat: "calibration", stimName:"fireworks2"},
+                            {img: htmlpre + "./img/garbagedump1.jpg" + htmlpost, cat: "calibration", stimName:"garbagedump1"},
+                            {img: htmlpre + "./img/lake16.jpg" + htmlpost, cat: "calibration", stimName:"lake16"}
+                          ],
+      randomize_order: true
+    }
+
+
+    if(!excludeIntro){
+      timeline.push(oasisBlock)
+    }
 
 //  END  -----------------------------------------------------------------------------
     timeline.push(demog_page)

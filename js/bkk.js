@@ -60,7 +60,7 @@ let anim_phase = 0;
 
 const defaultColour = "#f64f8cff"
 
-let screenDim = 400
+let screenDim = 450
 let bbkkSize = screenDim/3;
 let minSpikeSize = bbkkSize/2.3;
 let eyeHeight = bbkkSize/2.5;

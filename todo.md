@@ -31,17 +31,21 @@
 - [x] Training - record "calibration" trials and add to data
 - [x] Add bouba and kiki trials
 - [x] Randomise oasis and bkk within each group
+- [x] Put labels on circumplex 
+- [x] Prolific - Return user to Prolific
+- [x] Test data recording
+- [x] make sure everything fits on screen
+- [x] scale the images correctly
+- [x] check if training images are recorded
 
-- [] Put labels on circumplex (flag to turn on/off)
-- [] check if training images are recorded
-- [] Prolific - Return user to Prolific
-- [] don't display continue button until timer passes
-- [] Add full screen and check full screen data
-- [] make sure everything fits on screen
-- [] scale the images correctly
+- [] add more BKK prep pics
+- [] Test on mobile
 
 
 ## NICE TO HAVE
+- [] flag to turn on/off labels on the circumplex
+- [] don't display continue button until timer passes
+
+## LATER
 - [] script animation
 - [] Other response inputs? 
-- [] Option: display mannequins or words on circumplex

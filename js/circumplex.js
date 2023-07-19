@@ -20,10 +20,10 @@ let circumplexSketch = function(p) {
   let canvasY = 500;
 
 
-  let emotionList = [ "ACTIVE",
-                   "PLEASANT", 
-                   "NOT ACTIVE",
-                   "UNPLEASANT"
+  let emotionList = [ "AROUSAL",
+                   "POSITIVE", 
+                   "LOW AROUSAL",
+                   "NEGATIVE"
                    ]
 
    p._circ_callback;
@@ -34,16 +34,18 @@ let circumplexSketch = function(p) {
   let radius;
   let dotRadius;
 
+
   function drawText(cx, cy, radius, dotRadius){
     p.textSize(textHeight);
     p.noFill()
     p.stroke(200);
     p.strokeWeight(3);
+    //  draw the square around the outside
     p.square(cx-dotRadius,cy-dotRadius, dotRadius*2);
 
+    // Draw the descriptions (overkill now that there are just 4)
     npoints = emotionList.length;
     let angle = p.TWO_PI / npoints;
-
     for (let a = -p.PI/2, j=0; j < npoints; a += angle, j++) {
       x = (cx + p.cos(a) * radius);
       y = (cy + p.sin(a) * radius);
@@ -63,7 +65,6 @@ let circumplexSketch = function(p) {
             xoff = textHeight*0.75 
           }          
       }
-
       p.push();
         p.translate(x+xoff, y+yoff);
         if(j==1 || j==3){
@@ -77,15 +78,51 @@ let circumplexSketch = function(p) {
       p.pop();
       p.fill(0,0,0);
       p.circle(dotx,doty,dotsize)
-
     }
+
+    // Draw the axes
     p.noFill();
     p.strokeWeight(3);
     p.stroke(200)
-    p.line(centreX-(dotRadius-arrowPad), centreY, 
-                centreX+(dotRadius-arrowPad), centreY);
-    p.line(centreX, centreY-(dotRadius-arrowPad), 
-                centreX, centreY+(dotRadius-arrowPad));    
+
+    minx = centreX-(dotRadius-arrowPad)
+    maxx = centreX+(dotRadius-arrowPad)
+    miny = centreY-(dotRadius-arrowPad)
+    maxy = centreY+(dotRadius-arrowPad)
+
+    p.line(minx, centreY, maxx, centreY);
+    p.line(centreX, miny, centreX, maxy);    
+
+    // axis labels
+    xlabels = ["very\nnegative", "moderately\nnegative", "",
+              "moderately\npositive", "very\npositive"]
+
+    ylabels = ["very high\narousal", "moderately\nhigh arousal", "neutral", 
+              "moderately\nlow arousal", "very low\narousal"]
+
+    spacex = 0.89 *(maxx-minx)/(xlabels.length-1)
+    spacey = 0.93 *(maxy-miny)/(ylabels.length-1)
+
+    p.textSize(textHeight*1.1);
+    p.fill(150,150,150);
+    p.color(200,200,200)
+    p.stroke(0)      
+    p.strokeWeight(0.0);
+   
+   let i=0
+    for(let lab of xlabels){
+       /*p.translate(x+xoff, y+yoff)*/
+       p.text(lab, minx + spacex *i,centreY-3);
+       i++
+    }
+
+   i=0
+    for(let lab of ylabels){
+       /*p.translate(x+xoff, y+yoff)*/
+       p.text(lab,centreX+2, miny + 12 + spacey * i);
+       i++
+    }
+
   }
   
 
@@ -100,6 +137,7 @@ let circumplexSketch = function(p) {
     canvas.mouseClicked(drawMarker)
   }
 
+
   p.draw = function(){
       if(clicked){
         p.background(255);
@@ -107,6 +145,7 @@ let circumplexSketch = function(p) {
         drawText(centreX, centreY,radius, dotRadius);
         p.strokeWeight(1.5);
         p.stroke(0)
+        // draw the x at the point clicked
         p.line(clickedX - xSize, clickedY-xSize, clickedX + xSize, clickedY+xSize);
         p.line(clickedX + xSize, clickedY - xSize, clickedX-xSize, clickedY + xSize);        
         clicked=false;
