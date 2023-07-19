@@ -29,11 +29,16 @@
 - [x] Make "continue" button higher on the screen
 - [x] Fix images
 - [x] Training - record "calibration" trials and add to data
+- [x] Add bouba and kiki trials
+- [x] Randomise oasis and bkk within each group
 
-
+- [] Put labels on circumplex (flag to turn on/off)
+- [] check if training images are recorded
 - [] Prolific - Return user to Prolific
 - [] don't display continue button until timer passes
 - [] Add full screen and check full screen data
+- [] make sure everything fits on screen
+- [] scale the images correctly
 
 
 ## NICE TO HAVE

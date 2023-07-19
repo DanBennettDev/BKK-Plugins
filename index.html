@@ -350,10 +350,6 @@
       on_finish: function(data) {
         console.log(data.valence, data.arousal)
           instructioncorrect = true; 
-          // if( data.valence >  -0.5 & data.valence <  0.5 & data.arousal > 0.1 & data.arousal < 0.7) {         
-          //   action = false;
-          //   instructioncorrect = true;
-          // }
         }
       } 
       tr_6.push(training6)
@@ -370,18 +366,33 @@
     var finishTraining = {
         type: jsPsychHtmlButtonResponse,
         data: {trialCategory: "training"},
-        stimulus: '<p>Thanks, The next four pages will show emotional photographs. Now record your own feelings about these photographs in the way you have been guided in the last few pages </p>' , 
+        stimulus: '<p>Thanks, The next pages will show photographs and shapes. Now record your own feelings about these photographs in the way you have been guided in the last few pages </p>' , 
         choices: ["continue"]
     }
     trainingTimeline.push(finishTraining)
 
 
+    var trainingBlock = {
+      timeline: trainingTimeline,
+    }
+
+    if(!excludeIntro){
+      timeline.push(trainingBlock)
+    }
+
+
 
 //  OASIS --------------------------------------------------------------------------------------------------
 
- var oasis1 = { type: jsPsychBKKSurveyText, 
-        data: {trialCategory: "oasis"},
-        preamble: '<center><img src="./img/fire9.jpg"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>', 
+var htmlpre = '<center><img src="'
+var htmlpost = '"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>'
+
+ var teststim = { type: jsPsychBKKSurveyText, 
+        data: {trialCategory: jsPsych.timelineVariable("cat") },
+        preamble: function(){
+          var html=jsPsych.timelineVariable('img')
+          return html
+        }, 
         // For testing you can turn this off so you don't need to click the cirucmplex each time
         circClick_required: true, 
         //  For testing set this to zero so you don't need to wait
@@ -391,53 +402,38 @@
         gui_show:false, 
         questions: []
       }
-    trainingTimeline.push(oasis1)
 
- var oasis2 = { type: jsPsychBKKSurveyText, 
-        data: {trialCategory: "oasis"},
-        preamble: '<center><img src="./img/fireworks2.jpg"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>', 
-        // For testing you can turn this off so you don't need to click the cirucmplex each time
-        circClick_required: true, 
-        //  For testing set this to zero so you don't need to wait
-        min_duration: trial_time_lower_limit,
-        circ_hide: false,
-        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
-        gui_show:false, 
-        questions: []
-      }
-    trainingTimeline.push(oasis2)
-
- var oasis3 = { type: jsPsychBKKSurveyText, 
-        data: {trialCategory: "oasis"},
-        preamble: '<center><img src="./img/garbagedump1.jpg"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>', 
-        // For testing you can turn this off so you don't need to click the cirucmplex each time
-        circClick_required: true, 
-        //  For testing set this to zero so you don't need to wait
-        min_duration: trial_time_lower_limit,
-        circ_hide: false,
-        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
-        gui_show:false, 
-        questions: []
-      }
-    trainingTimeline.push(oasis3)
+    var oasisBlock = {
+      timeline: [teststim],
+      timeline_variables: [ {img: htmlpre + "./img/fire9.jpg" + htmlpost, cat: "calibration"},
+                            {img: htmlpre + "./img/fireworks2.jpg" + htmlpost, cat: "calibration"},
+                            {img: htmlpre + "./img/garbagedump1.jpg + htmlpost", cat: "calibration"},
+                            {img: htmlpre + "./img/lake16.jpg" + htmlpost, cat: "calibration"}
+                          ],
+      randomize_order: true
+    }
 
 
- var oasis4 = { type: jsPsychBKKSurveyText, 
-        data: {trialCategory: "oasis"},
-        preamble: '<center><img src="./img/lake16.jpg"></img></center><p> <p>Reflect on how this picture makes you feel, then record your feeling on the graph</p>', 
-        // For testing you can turn this off so you don't need to click the cirucmplex each time
-        circClick_required: true, 
-        //  For testing set this to zero so you don't need to wait
-        min_duration: trial_time_lower_limit,
-        circ_hide: false,
-        draw_bkk: false, // HIDING BKK FOR THESE INTRODUCITON TRIALS
-        gui_show:false, 
-        questions: []
-      }
-    trainingTimeline.push(oasis4)
+    if(!excludeIntro){
+      timeline.push(oasisBlock)
+    }
 
+//  BKK  calibration --------------------------------------------------------------------------------------------------
 
-    var finishOasis = {
+    var bkkCalibrationBlock = {
+      timeline: [teststim],
+      timeline_variables: [ {img: htmlpre + "./img/kk.jpg" + htmlpost, cat: "calibration"},
+                            {img: htmlpre + "./img/bb.jpg" + htmlpost, cat: "calibration"}
+                          ],
+      randomize_order: true
+    }
+
+    if(!excludeIntro){
+      timeline.push(bkkCalibrationBlock)
+    }
+
+//  END PREPARATION  --------------------------------------------------------------------------------------------------
+    var finishPrep = {
         type: jsPsychHtmlButtonResponse,
         data: {trialCategory: "training"},
         stimulus: '<p>Thanks. You have now completed the preparation section of the study.  You will now begin the experiment.</p>' +
@@ -446,28 +442,11 @@
                   '<br>', 
         choices: ["continue"]
     }
-    trainingTimeline.push(finishOasis)
+    timeline.push(finishPrep)
 
 
-    var trainingBlock = {
-      timeline: trainingTimeline,
-    }
-
-
-
-        // ' You have now completed the training section of the study. You will now begin the experiment.</p>'+
-        //           '<p>You will be shown 24 different shapes. For each shape click on the graph to record the emotion you think it represents. There are no "wrong" answers so long as you reflect and think about how the shape feels to you - just record how you feel</p>' +
-        //           '<p>For each page you will not be able to move on until [10 seconds?] have passed. For each time take the time to reflect on how the shape feels to you before recording your feeling.</p>' +
-        //           '<br>'
-
-
-
-    if(!excludeIntro){
-      timeline.push(trainingBlock)
-    }
 
 //  EXPERIMENT  -----------------------------------------------------------------------------
-
 
 
 
@@ -490,7 +469,6 @@
         for (let ns of noiseVals){
           for (let ey of showEyesVals){
             for (let lng of lengthVals){
-              console.log(ey)
               let thisTrial = { eyes: ey, 
                                 complexity: cnt, 
                                 noise: ns,
@@ -503,7 +481,6 @@
         }
       }
     }
-    console.log(BKK_stim_variables)
 
 
     var bkk_instruction = 'Look at the image below. How does it make you feel? Mark your feeling on the graph below, then click continue.'
