@@ -106,17 +106,17 @@ startpage.section.start =
     '       <br />The study will take about 10 minutes' +    
 
     '       <p><strong>What do I do in this study?</strong><br />' +
-    '       You will first be asked to describe your gender, age, and fluency in English. Then you will be introduced to the experiment environment with some training exercises. Finally, you will be asked to respond to 24 images, recording your emotional response</p>' +    
+    '       You will first be introduced to the experiment environment with some training exercises. Then you will be asked to respond to 24 images, recording your emotional response. Finally, you will be asked to describe your gender, age, and fluency in English.</p>' +   
 
     '   <p><strong>Do I have to take part? Can I withdraw?</strong><br />' +
     '       You do not have to take part and you can withdraw at any time without having to give a reason. You can give consent by clicking the confirm button at the bottom of this page. ' +
 
     '       <p><strong>What data is captured ?</strong><br />' +
-    '       We only record your responses to the images, your description of gender, age, and fluency. No information which could identify you is requested. </p>' +
+    '       We only record your responses to the images, your description of gender, age, and English fluency. No information which could identify you is requested. </p>' +
     
     '       <p><strong>What will happen to my data?</strong><br />' +
       
-    '       <p>Your involvement in the study will remain confidential. This information will only be available to research staff and national bodies which monitor whether research studies are conducted properly. Your study data will be anonymised. This means that it will be given an identification number and any identifying information about you will be removed. Therefore, it will not be possible to identify you by name from any aspect of documentation or reporting for this research study. At the end of the study your data will be made “Open Data”. This means that it will be stored in an online database so that it is publicly available.' +
+    '       <p>Your involvement in the study will remain confidential. This information will only be available to research staff and national bodies which monitor whether research studies are conducted properly. Your study data will be anonymised. This means that it will be given an identification number and any identifying information about you will be removed. Therefore, it will not be possible to identify you by name from any aspect of documentation or reporting for this research study. At the end of the study your data will be made <q>Open Data</q>. This means that it will be stored in an online database so that it is publicly available.' +
 
     '       <p><strong>What is open Data?</strong><br />' +
       
@@ -129,19 +129,19 @@ startpage.section.start =
 
     // '           <p><b>Recompense to participants</b></p>' +
     // '           <p>As stated on the Amazon Mechanical Turk page, the pay for completing this HIT is <b>' + welcome.task.pay + '</b></p>' +
-    '       <p><strong>What are the possible risks and disadvantages of taking part</strong><br />' +
+    '       <p><strong>What are the possible risks and disadvantages of taking part?</strong><br />' +
     '       There are no known risks or disadvantages to you associated with this experiment.</p>' +
 
-  '       <p><strong>Who is organising this research?: </strong><br /> This research is organised by Feng Feng, a research associate at the University of Bristol.</p>' +    
+  '       <p><strong>Who is organising this research? </strong><br /> This research is organised by Dr Feng Feng, a research associate at the University of Bristol.</p>' +    
 
-  '       <p><strong>Who has reviewed the study?: </strong><br /> This research has been reviewed by Dr Oussama Metatla and by the Faculty Research Ethics Committee.</p>' +        '       <p>This study has been approved on ethical grounds by the University Of Bristol Faculty Of Engineering Ethics Board.&nbsp; Any questions regarding your rights as a participant may be addressed to that committee through the Faculty Ethics Officer (<a href="http://www.bris.ac.uk/red/support/governance/ethics/ethics.html">see details here</a>). Please note that you are free to withdraw from participation at any time.</p>' +
+  '       <p><strong>Who has reviewed the study? </strong><br /> This research has been reviewed by Dr Oussama Metatla and by the Faculty Research Ethics Committee.</p>' +        '       <p>This study has been approved on ethical grounds by the University Of Bristol Faculty Of Engineering Ethics Board.&nbsp; Any questions regarding your rights as a participant may be addressed to that committee through the Faculty Ethics Officer (<a href="http://www.bris.ac.uk/red/support/governance/ethics/ethics.html">see details here</a>). Please note that you are free to withdraw from participation at any time.</p>' +
     '       <p>&nbsp;</p>' +
     '           <p align="center"><b>PARTICIPANT CONSENT</b></p>' +
     '           By continuing, you are making a decision whether or not to participate. ' +
    
     '   If you wish to ask further questions before participating you may contact us via Prolific.<br/>' + 
     '   Alternatively, if you feel you are satisfied with the information you have been provided, you can click the button below to continue <br/>' +
-    '  <b>By clicking this button you agree to the following statement</b>:  "I confirm that you have read the information on this page, and that I consent to participate. I may withdraw at any time before completion of the study, simply by closing the website. My data will then be automatically deleted. If I complete the study and submit my data, I understand that after the study the data will be made “open data”. I understand that this means the anonymised data will be publicly available and may be used for purposes not related to this study, and it will not be possible to identify me from these data."' +  
+    '  <b>By clicking this button you agree to the following statement</b>:  "I confirm that you have read the information on this page, and that I consent to participate. I may withdraw at any time before completion of the study, simply by closing the website. My data will then be automatically deleted. If I complete the study and submit my data, I understand that after the study the data will be made <q>open data</q>. I understand that this means the anonymised data will be publicly available and may be used for purposes not related to this study, and it will not be possible to identify me from these data."' +  
     '           <br>' +
     // '           <p align="center">' +
     // '           <input type="button" id="consentButton1" class="consent jspsych-btn" value="I agree" onclick="welcome.click.consent1()" >' +
